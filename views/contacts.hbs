@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrei Pavanello Personal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+
+
+
+</head>
+<body>
+
+    <!------------------------------------HEADER -------------------------------------------->
+
+       <nav class="navMain">
+        <div class="navContainer">
+            <a href="/" class="navLogo"><img src="logo.png" alt="logo" id="logo"></a>
+             <ul class="navbarMenu">
+                <li class="navbarItem">
+                    <a href="/" class="navbarLinks" id="home-page">Home</a>
+                </li>
+                <li class="navbarItem">
+                    <a href="/services" class="navbarLinks" id="services-page">Serviços</a>
+                </li>
+                 
+                <li class="navbarItem">
+                    <a href="/contacts" class="navbarLinks" id="contact-page">Contato</a>
+                </li>
+                <li class="navbarBtn">
+                    <a href="/login" class="button" id="sign-up">Log-in</a>
+                </li>
+             </ul>
+            
+        </div>
+    </nav>
+
+
+
+    <section class="contact">
+        <div class="contentContact">
+            <h2>Fale Comigo</h2>
+            <p>Comunique-se diretamente por e-mail, telefone, whatsapp ou localmente através dos endereços e recursos abaixo</p>
+        </div>
+        <div class="containerContact">
+            <div class="contactInfo">
+                <div class="box">
+                    <div class="contactIcon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contactText">
+                        <h3>Endereço</h3>
+                        <p>Rua 4100,<br> Piçarras,SC,<br>8838000</p>
+                    </div>
+                    <div class="contactIcon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contactText">
+                        <h3>Telefone</h3>
+                        <p>+55 47 9 9141-1387</p>
+                    </div>
+                    <div class="contactIcon"><i class="fas fa-envelope"></i></div>
+                    <div class="contactText">
+                        <h3>Email</h3>
+                        <p>pavanellopersonal@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contactForm">
+                <form id="form" action="https://formspree.io/f/xbjpwpdk" method="POST">
+                    <h2>Enviar Mensagem</h2>
+                    <div class="inputBox">
+                        <input type="text" id="inputName" class="name" name="name" required="required">
+                        <span>Nome Completo</span>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" id="inputEmail" required="required" name="email"class="email">
+                        <span>Email</span>
+                    </div>
+                    <div class="inputBox">
+                        <textarea required="required" id="inputMessage" class="message" name="message"></textarea>
+                        <span>Digite sua mensagem...</span>
+                    </div>
+                    <div class="inputBox">
+                        <input type="submit" class="submit" value="Enviar">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!------------------------------------- FOOTER ----------------------------------------------------------------------->
+    <a href="https://api.whatsapp.com/send?phone=554791411387&text=Olá%21%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20à%20respeito%20do%20personal." class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+        </a>
+
+
+        <div class="footer__container">
+            <div class="footer__links">
+                <div class="footer__link--wrapper">
+                    
+                    <div class="footer__link--items">
+                      
+                        <a href="/" id="footer__logo">Pavanello Personal Trainer</a>
+                        <p class="website__rights">© Pavanello Personal. Todos os direitos reservados.</p>
+                        <div class="social__icons">
+                             <a href="https://www.instagram.com/pavanello.personal/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/andrei.pavanello" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="/contacts" class="social__icon--link" target="_blank"><i class="fab fa-google"></i></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+    
+           
+    
+        </div>
+
+
+
+   
+    <!----------------------------------- MOBILE ------------------------------------------------------>
+ <div class ="toggle" onclick="show_hide()"></div>
+    <div class ="overlay"></div>
+    <div class = "menuMobile">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Serviços</a></li>
+            <li><a href="/contacts">Contato</a></li>
+            <li><a href="/login">Log-in</a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.toggle').click(function(){
+                $('.toggle').toggleClass('active')
+                $('.overlay').toggleClass('active')
+                $('.menuMobile').toggleClass('active')
+                
+                    
+
+            }
+            )
+        })
+    </script>
+  
+    <script src="../app.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+        
+
+
+
+
+</body>
+
+
+</html>
+
+
+
+

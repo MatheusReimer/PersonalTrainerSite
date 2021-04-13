@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrei Pavanello Personal</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="userPage.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+    <!------------------------------------HEADER -------------------------------------------->
+
+       <nav class="navMain">
+        <div class="navContainer">
+            <a href="/" class="navLogo"><img src="/logo.png" alt="logo" id="logo"></a>
+             <ul class="navbarMenu">
+                <li class="navbarItem">
+                    <a href="/" class="navbarLinks" id="home-page">Home</a>
+                </li>
+                <li class="navbarItem">
+                    <a href="/services" class="navbarLinks" id="services-page">Serviços</a>
+                </li>
+                 
+                <li class="navbarItem">
+                    <a href="/contacts" class="navbarLinks" id="contact-page">Contato</a>
+                </li>
+                <li class="navbarItem">
+                    <a href="/userPage" class="navbarLinks" id="userPage">Treinos</a>
+                </li>
+                <li class="navbarBtn">
+                     <a href="/login" class="button" onclick="cookieDelete(),cookieDeleteAdmin()">Logout</a>
+                </li>
+             </ul>
+            
+        </div>
+    </nav>
+
+    <input type="hidden" id="emails" value="{{emails}}">
+
+    <div class="mainDiv">
+   <div class="selectionDiv">
+    <select id="selectUserAdmin" name="selectUser" onchange="getUser()">
+        <option>Selecione o usuário</option>
+    </select>
+    <input type="button" value="Visualizar Desempenho" id="getSelectedUser">
+    <input type="button" value="Visualizar Treinos" id="getUserSpreadsheet"onClick="javascript:window.location.href='/userPage'">
+     <input type="button" value="Adicionar Imagens à Planilha" id="addImagesBtn"onClick="javascript:window.location.href='/uploadImages'">
+     <input type="button" value="Adicionar uma planilha de treinos" id="addSpreadSheetBtn"onClick="javascript:window.location.href='/personal'">
+    </div>
+    </div>
+
+
+
+
+
+
+    <script>
+      arrayOfEmails = document.getElementById('emails').value
+      arrayOfEmails = arrayOfEmails.split(",")
+      
+
+
+     for(z=0;z<arrayOfEmails.length;z++){
+          
+                
+
+           holder= document.getElementById('selectUserAdmin')
+            c= document.createElement('option')
+            c.setAttribute("id","optionUser")
+            node = document.createTextNode(arrayOfEmails[z])
+            c.appendChild(node)
+            holder.appendChild(c)
+
+
+     }
+
+    
+        function getUser(){
+        var selectedUser = document.getElementById('selectUserAdmin').value
+        var cookieValue = escape(document.getElementById("selectUserAdmin").value);
+        document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2040,12,25).toUTCString();
+        localStorage.setItem('adminUser', $('#selectUserAdmin').val());
+
+        }
+    
+
+        
+        document.getElementById("getSelectedUser").onclick = function () {
+        location.href = "/userStats";
+        };
+
+
+        //LEMBRAR DE DELETAR O COOKIE QUANDO SAIR DO USERSTATS
+        //res.cookie('adminUserEmail', selectedUser, { maxAge: 900000, httpOnly: true });
+
+
+
+
+
+     
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+    
+    <script>
+        function cookieDelete(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('emailLogin');
+                    
+                    document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+
+
+              function cookieDeleteAdmin(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('adminUserEmail');
+                    
+                    document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+    </script>
+    
+    <!------------------------------------- FOOTER ----------------------------------------------------------------------->
+    <a href="https://api.whatsapp.com/send?phone=554791411387&text=Olá%21%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20à%20respeito%20do%20personal." class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+        </a>
+
+
+        <div class="footer__container">
+            <div class="footer__links">
+                <div class="footer__link--wrapper">
+                    
+                    <div class="footer__link--items">
+                      
+                        <a href="/" id="footer__logo">Pavanello Personal Trainer</a>
+                        <p class="website__rights">© Pavanello Personal. Todos os direitos reservados.</p>
+                        <div class="social__icons">
+                            <a href="https://www.instagram.com/pavanello.personal/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/andrei.pavanello" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="/contacts" class="social__icon--link" target="_blank"><i class="fab fa-google"></i></a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+    
+           
+    
+        </div>
+
+
+
+   
+    <!----------------------------------- MOBILE ------------------------------------------------------>
+ <div class ="toggle" onclick="show_hide()"></div>
+    <div class ="overlay"></div>
+    <div class = "menuMobile">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/adminCheck">Admin Check</a></li>
+            <li><a href="/login" onclick="cookieDelete(),cookieDeleteAdmin()">Logout</a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.toggle').click(function(){
+                $('.toggle').toggleClass('active')
+                $('.overlay').toggleClass('active')
+                $('.menuMobile').toggleClass('active')
+                
+                    
+
+            }
+            )
+        })
+    </script>
+  
+    <script src="../app.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+        
+
+
+
+
+</body>
+
+
+</html>
+
+
+
+
