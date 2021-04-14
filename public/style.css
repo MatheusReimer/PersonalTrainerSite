@@ -9,11 +9,19 @@
     
     
 }
-html, body{height: 100%;}
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
 .navMain{
     background-color: #000000;
     height: 100px;
     top:0;
+
     
     z-index:999;
 }
@@ -255,9 +263,9 @@ html, body{height: 100%;}
     .listContainerIndex h1{
         font-size: 3.4rem;
         font-family: 'Raleway', sans-serif;
-        position:absolute;
-        left:10%;
-        top:30%;
+        position:static;
+        padding-right: 40%;
+        padding-top: 10%;
     
     }
     .listContainerIndex span{
@@ -276,9 +284,9 @@ html, body{height: 100%;}
 
     .listContainerIndex p{
         font-size: 2rem;
-        position:absolute;
-        left:10%;
-        top:55%;
+        position:static;
+        padding-right: 40%;
+        padding-top: 3%;
     }
 
     .main__btn{
@@ -291,9 +299,9 @@ html, body{height: 100%;}
     
         margin-top:2rem;
         cursor: pointer;
-        left: 25%;
-        top: 70%;
-        position: absolute;
+        width: 20%;
+        margin-left: 15%;
+        position: static;
         transition: all 0.35s;
         outline:none;
     }
@@ -307,23 +315,11 @@ html, body{height: 100%;}
         font-size: 1.5rem;
 
     }
-    .main__btn:after{
-        position: absolute;
-        content:'';
-        top:0;
-        left:0;
-        width:0;
-        height:100%;
-        background:#468821;
-        border-radius:4px;
-        transition: all 0.35s;
+    .main__btn:hover{
+        background-color: rgb(14, 121, 14);
+        border: groove;
     }
-  
-  
-    .main__btn:hover:after{
-        width: 100%;
-    }
-    
+ 
 
 
     .hero{
@@ -450,8 +446,8 @@ html, body{height: 100%;}
         position:fixed;
         width:60px;
         height:60px;
-        bottom:40px;
-        right:40px;
+        bottom:5%;
+        right:5%;
         background-color:#268035;
         color:#FFF;
         border-radius:50px;
@@ -777,8 +773,8 @@ html, body{height: 100%;}
 }
 
 .listContainerIndex h1{
-    position: absolute;
-    left: 25px;
+    position: static;
+    
     font-size: 2rem;
 }
 
@@ -789,7 +785,7 @@ html, body{height: 100%;}
     
 }
 .listContainerIndex p{
-    position: absolute;
+    position: static;
     left: 20px;
     font-size: 1.5rem;
 }
@@ -851,9 +847,9 @@ html, body{height: 100%;}
       }
 
     .listContainerIndex h1{
-        position: absolute;
-        top:250px;
-        left: 75px;
+        position:static;
+        margin-left: 16%;
+        padding-top: 15%;
         font-size: 3.5rem;
     }
     
@@ -903,6 +899,7 @@ html, body{height: 100%;}
         outline:none;
         position:sticky;
         margin-left: 40px;
+        text-align: center;
 
     }
  
@@ -932,6 +929,9 @@ html, body{height: 100%;}
   
     .main__btn_mobile:hover:after{
         width: 100%;
+    }
+    .mobileInfo h1{
+        font-size: 2rem;
     }
     
     .mobileInfo p{
@@ -968,6 +968,11 @@ html, body{height: 100%;}
  
 
 @media screen and (max-width:700px){
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
     .hero{
         align-content: unset;
         text-align: unset;
@@ -980,10 +985,11 @@ html, body{height: 100%;}
     .main__btn_mobile{
         padding: 1px 0px;
         width: 74%;
-        text-align: unset;
-        align-items: unset;
-        align-content: unset;
+        text-align: center;
+        align-items: center;
+        align-content: center;
         display: flex;
+        
         
     }
     .mobileInfo{
@@ -1007,7 +1013,9 @@ html, body{height: 100%;}
         justify-content: unset;
         
     }
-   
+    .listOfBenefits{
+        margin-left: 10%;
+    }
     
     
 
@@ -1040,34 +1048,27 @@ html, body{height: 100%;}
     }
     .listContainerIndex{
         
-        position:initial;
-        height: 15%;
-        margin: 0;
-    
-        justify-content:unset;
-        align-content: unset;
-        text-align:left;
+        position:static;
+        
+        
+        
         
         
     }
     
     .listContainerIndex p, .listContainerIndex h1{
         
-        font-size: 2rem;
-        margin: 10px;
-        margin-right: 40px;  
-        padding: 10px;
-        margin-left: 50px;
-        justify-content:unset;
-        align-content: unset;
-        text-align: unset;
+        font-size: 3.5rem;
+
+        margin-left: 20%;
+    
         
         
     }
     
     
     .listContainerIndex span{
-        font-size: 2rem;
+        font-size: 3.8rem;
         background: #04b822;  /* fallback for old browsers */
         background: -webkit-linear-gradient(to right, #18c43d, #043efcfb);  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to left #ffffff, rgb(0, 255, 200)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -1118,17 +1119,13 @@ html, body{height: 100%;}
 
 
 @media screen and (max-width:640px){
-        .listContainerIndex h1{
-            margin-right: 10px;
-            margin-left: 0;
-            
-        }
+       
         .main__btn_mobile{
             padding: 1px 0px;
             width: 85%;
-            text-align: unset;
-            align-items: unset;
-            align-content: unset;
+            text-align: center;
+            align-items: center;
+            align-content: center;
             display: flex;
             
         }
