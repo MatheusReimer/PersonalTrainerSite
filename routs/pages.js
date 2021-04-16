@@ -61,6 +61,13 @@ router.get('/userPage',authFunct,async (req,res) =>{
     var imagesSexta = []
     var imagesSabado = []
     var imagesDomingo =[]
+    var seriesSegunda = []
+    var seriesTerca = []
+    var seriesQuarta = []
+    var seriesQuinta = []
+    var seriesSexta = []
+    var seriesSabado = []
+    var seriesDomingo =[]
     contador= 1;
 
     admin=0
@@ -101,18 +108,22 @@ router.get('/userPage',authFunct,async (req,res) =>{
                    if(contador==1 ){
                        exercisesSegunda.push(results[r].exercicio);
                        imagesSegunda.push(results[r].images)
+                       seriesSegunda.push(results[r].series)
+
                     
                     }
                    if(contador==2 ){exercisesTerca.push(results[r].exercicio);
                    imagesTerca.push(results[r].images)
+                   seriesTerca.push(results[r].series)
+                   
                 }
-                   if(contador==3){exercisesQuarta.push(results[r].exercicio);imagesQuarta.push(results[r].images)}
-                   if(contador==4){exercisesQuinta.push(results[r].exercicio);imagesQuinta.push(results[r].images)}
-                   if(contador==5){exercisesSexta.push(results[r].exercicio);imagesSexta.push(results[r].images)}
-                   if(contador==6){exercisesSabado.push(results[r].exercicio);imagesSabado.push(results[r].images)}
-                   if(contador==7){exercisesDomingo.push(results[r].exercicio);imagesDomingo.push(results[r].images)}
+                   if(contador==3){exercisesQuarta.push(results[r].exercicio);imagesQuarta.push(results[r].images);  seriesQuarta.push(results[r].series)}
+                   if(contador==4){exercisesQuinta.push(results[r].exercicio);imagesQuinta.push(results[r].images);  seriesQuinta.push(results[r].series)}
+                   if(contador==5){exercisesSexta.push(results[r].exercicio);imagesSexta.push(results[r].images);  seriesSexta.push(results[r].series)}
+                   if(contador==6){exercisesSabado.push(results[r].exercicio);imagesSabado.push(results[r].images);  seriesSabado.push(results[r].series)}
+                   if(contador==7){exercisesDomingo.push(results[r].exercicio);imagesDomingo.push(results[r].images);  seriesDomingo.push(results[r].series)}
          
-                
+                  
                }
              
               
@@ -135,7 +146,7 @@ router.get('/userPage',authFunct,async (req,res) =>{
     req.exercisesQuinta = exercisesQuinta
     req.exercisesSexta = exercisesSexta
     req.exercisesSabado = exercisesSabado
-    req.exercisesDomingo = exercisesSabado
+    req.exercisesDomingo = exercisesDomingo
     req.imagesSegunda = imagesSegunda
     req.imagesTerca = imagesTerca
     req.imagesQuarta = imagesQuarta
@@ -143,6 +154,13 @@ router.get('/userPage',authFunct,async (req,res) =>{
     req.imagesSexta = imagesSexta
     req.imagesSabado = imagesSabado
     req.imagesDomingo = imagesDomingo
+    req.seriesSegunda = seriesSegunda
+    req.seriesTerca = seriesTerca
+    req.seriesQuarta = seriesQuarta
+    req.seriesQuinta = seriesQuinta
+    req.seriesSexta = seriesSexta
+    req.seriesSabado = seriesSabado
+    req.seriesDomingo = seriesDomingo
     
     
     
@@ -158,7 +176,7 @@ router.get('/userPage',authFunct,async (req,res) =>{
     
     })
     await delay(3000);
-    res.render('userPage',  {name: arrayOfCookies,admin:admin,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
+    res.render('userPage',  {name: arrayOfCookies,admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
     })
    
 
@@ -253,9 +271,10 @@ router.get('/adminCheck',authFunct,isAdmin,async(req,res) =>{
     arrayAlunosSemDuplicatas=[]
     var arrayOfEmails =[]
     
-    db.query('SELECT idAluno from planilhausers2',async (error,results) =>{
+    db.query('SELECT id from users2 ',async (error,results) =>{
+        console.log(results)
         for(i=0;i<results.length;i++){
-            idAlunos.push(results[i].idAluno)
+            idAlunos.push(results[i].id)
         }
 
         arrayAlunosSemDuplicatas = idAlunos.filter (function (value, index, array) { 
