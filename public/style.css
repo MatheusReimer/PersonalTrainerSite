@@ -513,6 +513,7 @@ html,body
                 margin: 0;
                 padding: 0;
             }
+          
 
                 .imgContainer p{
                    text-align: center;
@@ -695,6 +696,7 @@ html,body
     border-radius: 7px;
     padding:40px;
     align-items: center;
+    text-align: center;
 }
 
 .card1 h2{
@@ -711,7 +713,7 @@ html,body
     border-radius: 3px;
     background: rgb(33, 83, 18);
     cursor: pointer;
-    margin-left: 50px;
+    
     font-size: 30px;
     text-decoration: none;
     color: white;
@@ -805,6 +807,16 @@ html,body
 
 
 }
+@media screen and (max-width:600px){
+    .cardsPlans{
+        width: 80%;
+        margin-right: 30%;
+    }
+    .card1{
+        width: 100%;
+    }
+    
+}
 
 @media screen and (max-width:1200px){
     *{
@@ -826,15 +838,18 @@ html,body
 
     .cardsPlans{
     
-    margin-right: 30px;
+ 
     grid-template-columns: 1fr ;
     
     
     }
    .card1{
-       
-       margin-bottom: 25px;
-       height: 500px;
+       text-align: center;
+    
+       height: 90%;
+   }
+   card1 a{
+      
    }
 
    
@@ -965,7 +980,9 @@ html,body
     .footer__links{
         margin-left: 10%;
     }
- 
+   #p1{
+       color:rgb(0, 216, 0);
+   }
 
 @media screen and (max-width:700px){
     *{
@@ -1014,7 +1031,7 @@ html,body
         
     }
     .listOfBenefits{
-        margin-left: 10%;
+        
     }
     
     
@@ -1058,7 +1075,7 @@ html,body
     
     .listContainerIndex p, .listContainerIndex h1{
         
-        font-size: 3.5rem;
+        font-size: 2.4rem;
 
         margin-left: 20%;
     
@@ -1068,7 +1085,7 @@ html,body
     
     
     .listContainerIndex span{
-        font-size: 3.8rem;
+        font-size: 2.6rem;
         background: #04b822;  /* fallback for old browsers */
         background: -webkit-linear-gradient(to right, #18c43d, #043efcfb);  /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to left #ffffff, rgb(0, 255, 200)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -1081,10 +1098,10 @@ html,body
     }
 
     .commentary{
-        text-align: unset;
-        justify-content: unset;
-        align-content: unset;
-        align-items: unset;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
        
         padding: 0;
         margin: 0;
@@ -1339,6 +1356,7 @@ html,body
     align-items: center;
     text-align: center;
     align-content: center;
+    position:relative;
     
     background-image: url(tracking.jpg);
     height: 75%;
