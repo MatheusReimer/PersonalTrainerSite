@@ -185,7 +185,7 @@ router.get('/userPage',authFunct,async (req,res) =>{
 
 
 router.get('/personal',authFunct,isAdmin,(req,res) =>{
-
+    var cookieAdmin = req.cookies['adminUser'];
     //const nameUser = require('../controllers/auth')
     //res.render('userPage',  {name: nameUser })
     var arrayOfCookies = req.cookies['myEmail'];
@@ -193,7 +193,7 @@ router.get('/personal',authFunct,isAdmin,(req,res) =>{
 
     
     //console.log(arrayOfCookies)
-    res.render('personal',  {name: arrayOfCookies})
+    res.render('personal',  {name: arrayOfCookies, cookieAdmin:cookieAdmin})
     
 
 
@@ -271,10 +271,9 @@ router.get('/adminCheck',authFunct,isAdmin,async(req,res) =>{
     arrayAlunosSemDuplicatas=[]
     var arrayOfEmails =[]
     
-    db.query('SELECT id from users2 ',async (error,results) =>{
-        console.log(results)
+    db.query('SELECT idAluno from planilhausers2',async (error,results) =>{
         for(i=0;i<results.length;i++){
-            idAlunos.push(results[i].id)
+            idAlunos.push(results[i].idAluno)
         }
 
         arrayAlunosSemDuplicatas = idAlunos.filter (function (value, index, array) { 
