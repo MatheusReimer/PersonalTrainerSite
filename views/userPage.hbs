@@ -112,6 +112,7 @@
 
     </select>
     <br>
+    
     <input type="hidden" value="{{name}}" name="email">
     <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;">
   
@@ -125,16 +126,28 @@
              <br>
           <label id="lblmess"></label>
           
-    
-             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;"> 
+           
+             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;" onclick="somarPesos()"> 
        
-             <p style="visibility: hidden;" id="imagesSegundaArray">{{imagesSegunda}}</p>
+    <p style="visibility: hidden;" id="imagesSegundaArray">{{imagesSegunda}}</p>
     <p  style="visibility: hidden;" id="imagesTercaArray">{{imagesTerca}}</p>
     <p style="visibility: hidden;" id="imagesQuartaArray">{{imagesQuarta}}</p>
     <p style="visibility: hidden;" id="imagesQuintaArray">{{imagesQuinta}}</p>
     <p style="visibility: hidden;" id="imagesSextaArray">{{imagesSexta}}</p>
     <p style="visibility: hidden;" id="imagesSabadoArray">{{imagesSabado}}</p>
     <p style="visibility: hidden;" id="imagesDomingoArray">{{imagesDomingo}}</p>
+
+    <p style="visibility: hidden;"id="seriesSegundaArray">{{seriesSegunda}}</p>
+    <p style="visibility: hidden;" id="seriesTercaArray">{{seriesTerca}}</p>
+    <p style="visibility: hidden;" id="seriesQuartaArray">{{seriesQuarta}}</p>
+    <p style="visibility: hidden;" id="seriesQuintaArray">{{seriesQuinta}}</p>
+    <p style="visibility: hidden;" id="seriesSextaArray">{{seriesSexta}}</p>
+    <p style="visibility: hidden;" id="seriesSabadoArray">{{seriesSabado}}</p>
+    <p style="visibility: hidden;" id="seriesDomingoArray">{{seriesDomingo}}</p>
+
+
+    
+
     <br>
   
   
@@ -152,7 +165,7 @@
         /*
         valueOfSegunda =document.getElementById("imagesSegundaArray").innerHTML;
         valueOfSegunda= valueOfSegunda.split(",")
-        console.log(valueOfSegunda)
+        
         img = document.getElementById("imgOfSegunda")
         img.src=valueOfSegunda[0]
         */
@@ -169,44 +182,34 @@
             document.getElementById('diaSelecionado').value = dia
             
             valorSelecionado = formid.weekDay[formid.weekDay.selectedIndex].value
-            var splits = valorSelecionado.split(',');
-            splits = splits.filter((value,index,arr)=>arr.indexOf(value)==index);
+            var splitsOriginal = valorSelecionado.split(',');
+            splits = splitsOriginal.filter((value,index,arr)=>arr.indexOf(value)==index);
+            var indexesNoArrayOriginal
+            var arrayOfIndexes = []
+            for(i=0;i<splits.length;i++){
+                index = splitsOriginal.indexOf(splits[i])
+                arrayOfIndexes.push(index)
+            }
+            
+
             var holder = document.getElementById("holder");
-            console.log(splits.length, valorSelecionado)
+         
 
             a= document.getElementById('holder')
      
             if(a.firstChild){
-                for(i=0;i<=a.childNodes.length;i++){
-               inputElement = document.getElementById('t1')
-               paragraphElement = document.getElementById('p1')
-               var imgElement = document.getElementById("imagemExercicios");
-               if(imgElement!=null){
-                var myImgValue= imgElement.value;
-                      imgElement.remove()
-                }
-               var videoElement = document.getElementById("videosExercicios");
-               if(videoElement!=null){
-                var myVideoValue= videoElement.value;
                 
-               videoElement.remove()
-                }
-               
-               
-               
-
-
-               inputElement.remove()
-               paragraphElement.remove()
-         
-               
-                }
+                a.innerHTML=''
+                
             }
             ///EU TENHO ALGO DENTRO DO MEU ARRAY?
             if(splits.length>1 || valorSelecionado!="" && valorSelecionado!="menu"){
+           
+            
+         
+
             for(z=0;z<splits.length;z++){
    
-                
          
            
             c= document.createElement('p')
@@ -216,14 +219,7 @@
             holder.appendChild(c)
             
 
-            b= document.createElement('input')
-            b.setAttribute("type","number");
-            b.step = 0.1;
-            b.min = 0;
-            b.name = "peso"
-            b.setAttribute("id","t1")
-            b.required = true;
-            a.appendChild(b)
+       
 
 
 
@@ -233,13 +229,60 @@
            
 
 
-            if(dia==1){ imgValue =document.getElementById("imagesSegundaArray").innerHTML;}
-            if(dia==2){ imgValue =document.getElementById("imagesTercaArray").innerHTML;}
-            if(dia==3){ imgValue =document.getElementById("imagesQuartaArray").innerHTML;}
-            if(dia==4){ imgValue =document.getElementById("imagesQuintaArray").innerHTML;}
-            if(dia==5){ imgValue =document.getElementById("imagesSextaArray").innerHTML;}
-            if(dia==6){ imgValue =document.getElementById("imagesSabadoArray").innerHTML;}
-            if(dia==7){ imgValue =document.getElementById("imagesDomingoArray").innerHTML;}
+            if(dia==1){ imgValue =document.getElementById("imagesSegundaArray").innerHTML; seriesDoDia = document.getElementById("seriesSegundaArray").innerHTML}
+            if(dia==2){ imgValue =document.getElementById("imagesTercaArray").innerHTML;seriesDoDia = document.getElementById("seriesTercaArray").innerHTML}
+            if(dia==3){ imgValue =document.getElementById("imagesQuartaArray").innerHTML;seriesDoDia = document.getElementById("seriesQuartaArray").innerHTML}
+            if(dia==4){ imgValue =document.getElementById("imagesQuintaArray").innerHTML;seriesDoDia = document.getElementById("seriesQuintaArray").innerHTML}
+            if(dia==5){ imgValue =document.getElementById("imagesSextaArray").innerHTML;seriesDoDia = document.getElementById("seriesSextaArray").innerHTML}
+            if(dia==6){ imgValue =document.getElementById("imagesSabadoArray").innerHTML;seriesDoDia = document.getElementById("seriesSabadoArray").innerHTML}
+            if(dia==7){ imgValue =document.getElementById("imagesDomingoArray").innerHTML;seriesDoDia = document.getElementById("seriesDomingoArray").innerHTML}
+
+
+            
+            console.log(splits)
+            seriesDoDia = seriesDoDia.split(",")
+            seriesDoDiaFormated = []
+          
+            for(i=0;i<arrayOfIndexes.length;i++ ){
+                index = arrayOfIndexes[i]
+                seriesDoDiaFormated.push(seriesDoDia[index])
+            }  
+            
+          
+            for(i=0;i<seriesDoDiaFormated[z];i++){
+                newParagraph = document.createElement('p')
+                 node = document.createTextNode("Peso na Série: "+(i+1))
+                newParagraph.appendChild(node)
+                a.appendChild(newParagraph)
+                valoresDasSeries= document.createElement('input')
+                valoresDasSeries.setAttribute("type","number");
+                valoresDasSeries.step = 0.1;
+                valoresDasSeries.min = 0;
+                valoresDasSeries.setAttribute("id","valoresDasSeries"+z)
+                valoresDasSeries.name = "valoresDasSeries" + z;
+                valoresDasSeries.required = true;
+                a.appendChild(valoresDasSeries)
+                newParagraph = document.createElement('p')
+                node = document.createTextNode("Repetições na série: " + (i+1))
+                newParagraph.appendChild(node)
+                a.appendChild(newParagraph)
+                repeticoes = document.createElement('input')
+                repeticoes.setAttribute("type","number");
+                repeticoes.step = 0.1;
+                repeticoes.min = 0;
+                repeticoes.setAttribute("id","repeticoes"+z)
+                repeticoes.name = "repeticoes" + z;
+                repeticoes.required = true;
+                a.appendChild(repeticoes)
+
+                
+            }
+
+
+
+
+
+
            
             imgValue= imgValue.split(",")
 
@@ -266,10 +309,33 @@
             a.appendChild(video)
             }
             
-           
-
             
-        
+
+            b= document.createElement('input')
+            b.setAttribute("type","number");
+            b.step = 0.1;
+            b.min = 0;
+            b.name = "peso"
+            
+            b.setAttribute("id","t1"+z)
+            b.required = true;
+
+            q= document.createElement('input')
+            q.setAttribute("type","number");
+            q.step = 0.1;
+            q.min = 0;
+            q.name = "repeticoesTotais";
+            
+            q.setAttribute("id","repeticoesTotais"+z)
+            q.required = true;
+            
+            
+           
+            a.appendChild(b)
+            a.appendChild(q)
+
+            document.getElementById("t1"+z).style.visibility = 'hidden'
+            document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
 
             document.getElementById('buttonSubmit').style.visibility = 'visible';
             document.getElementById('dateOfTrain').style.visibility='visible'
@@ -327,7 +393,30 @@
         }
 
 
-        
+        function somarPesos(){
+            
+              for(z=0;z<splits.length;z++){
+            var total=0;
+            values = document.getElementsByName("valoresDasSeries"+z)
+            values.forEach((valoresDasSeries)=>{
+            valueToFloat = parseFloat(valoresDasSeries.value)
+            total = total+valueToFloat
+            
+            })
+            document.getElementById("t1"+z).value  = total
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            var totalRepeticoes = 0
+            repeticoesTotais = document.getElementsByName("repeticoes"+z)
+            repeticoesTotais.forEach((valorRepeticoes)=>{
+            repeticoesToFloat = parseFloat(valorRepeticoes.value)
+            console.log(valorRepeticoes.value)
+            totalRepeticoes = totalRepeticoes + repeticoesToFloat;
+            })
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
+             }
+        }
+       
+
     </script>
     
 
@@ -401,7 +490,16 @@
             li.appendChild((a));
             ul.appendChild(li)
 
-
+            
+            ul =document.getElementById("ulMenuMobile")
+            li=document.createElement("li")
+            li.setAttribute("id","liId")
+            a = document.createElement("a")
+            a.value="Registrar"
+            a.href = "/register"
+            a.appendChild(document.createTextNode(a.value))
+            li.appendChild((a));
+            ul.appendChild(li)
 
 
 
