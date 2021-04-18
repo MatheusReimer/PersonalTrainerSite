@@ -84,17 +84,18 @@
                     <p><span class="valor">R$150</span></p>
                     <a href="/contacts" class="comprarButton" id="buy">Comprar</a>
                 </div>
-
                 <div class="card1">
                     <h2>Plano Trimestral</h2>
                     <p>
-                        12 semanas de consultoria<br>
+                       12 semanas de consultoria<br>
                        Programa de Treinamento Completo<br>
                        Contato exclusivo e direto com seu personal<br>
-                   </p>
-                   <p><span class="valor">R$390</span></p>
+                    </p>
+                    <p><span class="valor">R$390</span></p>
                     <a href="/contacts" class="comprarButton" id="buy">Comprar</a>
                 </div>
+
+               
                 <div class="card1">
                     <h2>Plano Semestral</h2>
                     <p>
@@ -173,6 +174,26 @@
     
   
     <script src="app.js"></script>
+       <script>
+               function cookieDeleteAdmin(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('adminUserEmail');
+                    
+                    document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+
+          function cookieDelete(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('emailLogin');
+                    
+                    document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+
+        window.onload = cookieDelete;
+        window.onload = cookieDeleteAdmin;
+        </script>
  
 
 </body>
