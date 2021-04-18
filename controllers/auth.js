@@ -114,7 +114,7 @@ exports.register = (req, res) => {
 
 
 
-exports.personal = (req, res) => {
+exports.personal = async(req, res) => {
     
   const checkbox = req.body.deleteExistingSpreadsheets
   const emailPlan = req.body.userEmailTrain;
@@ -129,14 +129,12 @@ exports.personal = (req, res) => {
   var userSeries=[]
   var jaExistePlanilha 
 
-  
     
-    console.log(req.body)
 
-    db.query('SELECT id FROM users2 WHERE email = ?', [emailPlan],async (error,results) =>{
+    await db.query('SELECT id FROM users2 WHERE email = ?', [emailPlan],async (error,results) =>{
         resultadosGerais = results[0];
        if(resultadosGerais==null){
-         res.render('userPage',{
+         return res.render('userPage',{
              message:"Usuário inexistente"
          })
          console.log(error)
@@ -157,15 +155,15 @@ exports.personal = (req, res) => {
          
         
         
-        if(i%4==3){userSeries.push(totalRows[i]); console.log(totalRows[i])}
-        if(i%4==2){userRep.push(totalRows[i]); console.log(totalRows[i])}
-        if(i%4==1){userMember.push(totalRows[i]); console.log(totalRows[i])}
-        if(i%4==0){userExercise.push(totalRows[i]); console.log(totalRows[i])}
+        if(i%4==3){userSeries.push(totalRows[i]);}
+        if(i%4==2){userRep.push(totalRows[i]); }
+        if(i%4==1){userMember.push(totalRows[i]); }
+        if(i%4==0){userExercise.push(totalRows[i]); }
        
         }
 
         await db.query('SELECT diaDaSemana FROM planilhausers2 WHERE idAluno = ?', [userId],async (error,results) =>{   
-        resultados = results; 
+        let resultados = results; 
         
         for(z=0;z<results.length;z++){
             
@@ -174,9 +172,11 @@ exports.personal = (req, res) => {
             }
         }  
         })
-          
+       
                              ///Adicionando ao BD por linhas
      for (j=0;j<(totalRows.length/4);j++){
+
+        try{
      
         await db.query('INSERT INTO planilhausers2 SET ?', {exercicio:userExercise[j].toUpperCase(), membro:userMember[j].toUpperCase(), repeticoes:userRep[j],idAluno:userId,diaDaSemana:weekDay,series:userSeries[j]}, (error,results) =>{
             if(error){
@@ -184,18 +184,22 @@ exports.personal = (req, res) => {
             }
             else if(jaExistePlanilha==true){
                 
-                    res.render('personal',{
+                    return res.render('personal',{
                         message:"Já existia uma planilha neste dia para este usuário, os exercicios colocados agora foram inseridos naquela planilha. Caso necessário, marque o checkbox para excluir"
                     })
                 
             }
             else{
-                res.render('personal',{
-                    message:"Success creating spreadsheet"
-                })
+               
             }
           })
+        }catch{
+            console.log(error)
         }
+        }
+        return res.render('personal',{
+            message:"Success creating spreadsheet"
+        })
 
         
                 
@@ -208,7 +212,6 @@ exports.personal = (req, res) => {
       
 
     )}
-
 
   
 
