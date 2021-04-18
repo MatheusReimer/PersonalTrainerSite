@@ -11,6 +11,7 @@ const db = mysql.createConnection({
 
 
 
+
 exports.login = async (req, res) => {
     try {
         const{email, password} = req.body;
@@ -64,6 +65,7 @@ exports.login = async (req, res) => {
   
 
 }
+
 
 
 exports.register = (req, res) => {
