@@ -181,7 +181,26 @@
     <script src="../app.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
 
-        
+           <script>
+               function cookieDeleteAdmin(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('adminUserEmail');
+                    
+                    document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+
+          function cookieDelete(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('emailLogin');
+                    
+                    document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+
+        window.onload = cookieDelete;
+        window.onload = cookieDeleteAdmin;
+        </script>
 
 
 
