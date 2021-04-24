@@ -243,7 +243,6 @@
 
 
             
-            console.log(splits)
             seriesDoDia = seriesDoDia.split(",")
             seriesDoDiaFormated = []
           
@@ -251,6 +250,7 @@
                 index = arrayOfIndexes[i]
                 seriesDoDiaFormated.push(seriesDoDia[index])
             }  
+            console.log(seriesDoDiaFormated)
             
           
             for(i=0;i<seriesDoDiaFormated[z];i++){
@@ -383,9 +383,7 @@
             repeticoesSemanaAnterior.push(repeticoesArrayOrdenado[indexesToGrabAdjusted[i]])
             seriesSemanaAnterior.push(seriesArrayOrdenado[indexesToGrabAdjusted[i]])
             }
-            console.log(pesosSemanaAnterior)
-            console.log(repeticoesSemanaAnterior)
-            console.log(seriesSemanaAnterior)
+            
 
 
             a.appendChild(b)
@@ -393,7 +391,8 @@
             let resultsParagraph = document.createElement('h2')
             node = document.createTextNode("Semana passada o volume do seu treino foi de "+repeticoesSemanaAnterior[0]*pesosSemanaAnterior[0]*seriesSemanaAnterior[0]  )
             resultsParagraph.appendChild(node)
-            a.appendChild(resultsParagraph)
+            //para ver o resultado
+            //a.appendChild(resultsParagraph)
 
 
             document.getElementById("t1"+z).style.visibility = 'hidden'
@@ -465,7 +464,7 @@
             total = total+valueToFloat
             
             })
-            document.getElementById("t1"+z).value  = total
+            document.getElementById("t1"+z).value  = total/seriesDoDiaFormated[z]
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             var totalRepeticoes = 0
             repeticoesTotais = document.getElementsByName("repeticoes"+z)
@@ -474,7 +473,7 @@
             console.log(valorRepeticoes.value)
             totalRepeticoes = totalRepeticoes + repeticoesToFloat;
             })
-            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes/seriesDoDiaFormated[z]
              }
         }
        
