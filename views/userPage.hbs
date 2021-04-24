@@ -65,14 +65,8 @@
 
 
     <script>
-
-
-
-
-
         function cookieDelete(){
                                    
-
                     var cookieValue =  localStorage.getItem('emailLogin');
                     
                     document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -145,10 +139,7 @@
     <p style="visibility: hidden;" id="seriesSabadoArray">{{seriesSabado}}</p>
     <p style="visibility: hidden;" id="seriesDomingoArray">{{seriesDomingo}}</p>
 
-    <p  style="visibility: hidden;" id="resultadosTotaisPeso">{{resultadosTotaisPeso}}</p>
-    <p  style="visibility: hidden;" id="resultadosTotaisRepeticoes">{{resultadosTotaisRepeticoes}}</p>
-    <p   style="visibility: hidden;" id="resultadosTotaisSeries">{{resultadosTotaisSeries}}</p>
-    <p  style="visibility: hidden;" id="resultadosTotaisDias">{{resultadosTotaisDias}}</p>
+
     
 
     <br>
@@ -172,20 +163,15 @@
         img = document.getElementById("imgOfSegunda")
         img.src=valueOfSegunda[0]
         */
-
         function display(){
             
             
-
             //LIMPANDO O AVISO
              document.getElementById('lblmess').innerHTML = ""
-
-
             dia = formid.weekDay.selectedIndex
             document.getElementById('diaSelecionado').value = dia
             
             valorSelecionado = formid.weekDay[formid.weekDay.selectedIndex].value
-         
             var splitsOriginal = valorSelecionado.split(',');
             splits = splitsOriginal.filter((value,index,arr)=>arr.indexOf(value)==index);
             var indexesNoArrayOriginal
@@ -195,10 +181,8 @@
                 arrayOfIndexes.push(index)
             }
             
-
             var holder = document.getElementById("holder");
          
-
             a= document.getElementById('holder')
      
             if(a.firstChild){
@@ -211,7 +195,6 @@
            
             
          
-
             for(z=0;z<splits.length;z++){
    
          
@@ -222,17 +205,8 @@
             c.appendChild(node)
             holder.appendChild(c)
             
-
        
-
-
-
-
-
-
            
-
-
             if(dia==1){ imgValue =document.getElementById("imagesSegundaArray").innerHTML; seriesDoDia = document.getElementById("seriesSegundaArray").innerHTML}
             if(dia==2){ imgValue =document.getElementById("imagesTercaArray").innerHTML;seriesDoDia = document.getElementById("seriesTercaArray").innerHTML}
             if(dia==3){ imgValue =document.getElementById("imagesQuartaArray").innerHTML;seriesDoDia = document.getElementById("seriesQuartaArray").innerHTML}
@@ -240,9 +214,8 @@
             if(dia==5){ imgValue =document.getElementById("imagesSextaArray").innerHTML;seriesDoDia = document.getElementById("seriesSextaArray").innerHTML}
             if(dia==6){ imgValue =document.getElementById("imagesSabadoArray").innerHTML;seriesDoDia = document.getElementById("seriesSabadoArray").innerHTML}
             if(dia==7){ imgValue =document.getElementById("imagesDomingoArray").innerHTML;seriesDoDia = document.getElementById("seriesDomingoArray").innerHTML}
-
-
             
+            console.log(splits)
             seriesDoDia = seriesDoDia.split(",")
             seriesDoDiaFormated = []
           
@@ -250,7 +223,6 @@
                 index = arrayOfIndexes[i]
                 seriesDoDiaFormated.push(seriesDoDia[index])
             }  
-            console.log(seriesDoDiaFormated)
             
           
             for(i=0;i<seriesDoDiaFormated[z];i++){
@@ -278,27 +250,14 @@
                 repeticoes.name = "repeticoes" + z;
                 repeticoes.required = true;
                 a.appendChild(repeticoes)
-
                 
             }
-            
-
-            
-
-
-
-
            
             imgValue= imgValue.split(",")
-
-
-
             const images = ["jpg", "gif", "png"]
             const videos = ["mp4", "m4v", "ogg"]
-
             
             const extension = imgValue[z].split(".")[imgValue[z].split(".").length - 1]
-
             if (images.includes(extension)) {
             console.log("imagem")
             img = document.createElement("img")
@@ -315,7 +274,6 @@
             }
             
             
-
             b= document.createElement('input')
             b.setAttribute("type","number");
             b.step = 0.1;
@@ -324,7 +282,6 @@
             
             b.setAttribute("id","t1"+z)
             b.required = true;
-
             q= document.createElement('input')
             q.setAttribute("type","number");
             q.step = 0.1;
@@ -333,71 +290,13 @@
             
             q.setAttribute("id","repeticoesTotais"+z)
             q.required = true;
-
-
-
-            ////////////////////////////////////// FICOU CONFUSO, COMO MELHORAR?
-            /// DESCRIÇÃO: DIAS ORDENADOS POSSUI TODOS OS DIAS PORÉM SÓ QUERO OS DIAS QUE BATEM COM O DIA DA SEMANA DO SELECT QUE ESTOU SELECIONANDO (VARIÁVEL DIA)
-            /// PARA SABER QUAIS OS ÍNDICES QUE PRECISO PEGAR DO PESO, SERIES E REPETICOES, PRECISO SABER QUAIS OS ÚLTIMOS VALORES INSERIDOS NA TABELA, ISSO DENTRO DO DIA DA SEMANA DESEJADO
-            ///LOGO, A VARIAVEL INDEXES TO GRAB REGISTRA TODOS OS INDICES QUE BATEM COM O DIA DA SEMANA DESEJADO, PORÉM DE VÁRIAS SEMANAS DIFERENTES E EU SÓ QUERO DA ÚLTIMA SEMANA
-            /// DESSA FORMA, O VETOR AJUSTADO RECEBE SOMENTE OS VALORES CORRETOS DOS ÍNDICES
-
-
-            let diasOrdenados = document.getElementById("resultadosTotaisDias").innerHTML
-            diasOrdenados = diasOrdenados.split(",")
-            indexesToGrab = []
-            while(diasOrdenados[i]!=dia){
-                i++;
-            }
-
-            for(i=0;i<diasOrdenados.length;i++){
-                if(diasOrdenados[i]!=dia){
-
-                }
-                else{
-                    while(diasOrdenados[i]==dia){
-                        indexesToGrab.push(i)
-                        i++
-                    }
-                }
-            }
-            let indexesToGrabAdjusted = []
-            let counter = 1;
-            indexesToGrabAdjusted.push(indexesToGrab[0])
-            while(indexesToGrab[counter]-1 ==  indexesToGrab[counter-1]){
-                indexesToGrabAdjusted.push(indexesToGrab[counter])
-                counter++;
-            }
-            pesosArrayOrdenado = document.getElementById("resultadosTotaisPeso").innerHTML
-            repeticoesArrayOrdenado = document.getElementById("resultadosTotaisRepeticoes").innerHTML
-            seriesArrayOrdenado = document.getElementById("resultadosTotaisSeries").innerHTML
-            pesosArrayOrdenado = pesosArrayOrdenado.split(",")
-            repeticoesArrayOrdenado = repeticoesArrayOrdenado.split(",")
-            seriesArrayOrdenado = seriesArrayOrdenado.split(",")
-
-            pesosSemanaAnterior = []
-            repeticoesSemanaAnterior = []
-            seriesSemanaAnterior = []
-            for(i=0;i<indexesToGrabAdjusted.length;i++){
-            pesosSemanaAnterior.push(pesosArrayOrdenado[indexesToGrabAdjusted[i]])
-            repeticoesSemanaAnterior.push(repeticoesArrayOrdenado[indexesToGrabAdjusted[i]])
-            seriesSemanaAnterior.push(seriesArrayOrdenado[indexesToGrabAdjusted[i]])
-            }
             
-
-
+            
+           
             a.appendChild(b)
             a.appendChild(q)
-            let resultsParagraph = document.createElement('h2')
-            node = document.createTextNode("Semana passada o volume do seu treino foi de "+repeticoesSemanaAnterior[0]*pesosSemanaAnterior[0]*seriesSemanaAnterior[0]  )
-            resultsParagraph.appendChild(node)
-            //para ver o resultado
-            //a.appendChild(resultsParagraph)
-
-
             document.getElementById("t1"+z).style.visibility = 'hidden'
             document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
-
             document.getElementById('buttonSubmit').style.visibility = 'visible';
             document.getElementById('dateOfTrain').style.visibility='visible'
             }
@@ -408,7 +307,6 @@
                 document.getElementById('lblmess').innerHTML = "Faça a seleção do seu treino"
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
-
             }
             ///CASO NÃO POSSUA TREINOS
             else{
@@ -416,13 +314,8 @@
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
             }
-
         
-
         }
-
-
-
         isAdmin =document.getElementById('isAdmin').innerHTML
         if(isAdmin==1){
             width =$(window).width();
@@ -431,14 +324,10 @@
           
            if(width>1420) {document.getElementById('registerPage').style.visibility = 'visible'}
          
-
             var button = document.createElement("button");
             button.innerHTML = "Admin Logout";
-
             var body = document.getElementsByClassName("adminLogout")[0]
             body.appendChild(button);
-
-
             button.onclick = function(){
                     var cookieValue =  localStorage.getItem('adminUser');
                     
@@ -446,14 +335,10 @@
                     window.location.replace("/adminCheck");
                     adminIsLogged=false
             };
-
-
          
         }else{
             
         }
-
-
         function somarPesos(){
             
               for(z=0;z<splits.length;z++){
@@ -464,7 +349,7 @@
             total = total+valueToFloat
             
             })
-            document.getElementById("t1"+z).value  = total/seriesDoDiaFormated[z]
+            document.getElementById("t1"+z).value  = total
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             var totalRepeticoes = 0
             repeticoesTotais = document.getElementsByName("repeticoes"+z)
@@ -473,11 +358,10 @@
             console.log(valorRepeticoes.value)
             totalRepeticoes = totalRepeticoes + repeticoesToFloat;
             })
-            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes/seriesDoDiaFormated[z]
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
              }
         }
        
-
     </script>
     
 
@@ -536,11 +420,6 @@
     <script>
         if(isAdmin==1){
             
-
-
-
-
-
             ul =document.getElementById("ulMenuMobile")
             li=document.createElement("li")
             li.setAttribute("id","liId")
@@ -550,7 +429,6 @@
             a.appendChild(document.createTextNode(a.value))
             li.appendChild((a));
             ul.appendChild(li)
-
             
             ul =document.getElementById("ulMenuMobile")
             li=document.createElement("li")
@@ -561,25 +439,7 @@
             a.appendChild(document.createTextNode(a.value))
             li.appendChild((a));
             ul.appendChild(li)
-
-
-
-
-
-
-
       
-
-
-
-
-
-
-
-
-
-
-
         }
     </script>
 
@@ -594,18 +454,14 @@
                 a++;
                
                     
-
             }
             )
         })
-
-
     
     </script>
     <script>
             function cookieDeleteAdmin(){
                                    
-
                     var cookieValue =  localStorage.getItem('adminUserEmail');
                     
                     document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -624,7 +480,3 @@
 
 
 </html>
-
-
-
-
