@@ -145,10 +145,10 @@
     <p style="visibility: hidden;" id="seriesSabadoArray">{{seriesSabado}}</p>
     <p style="visibility: hidden;" id="seriesDomingoArray">{{seriesDomingo}}</p>
 
-    <p id="resultadosTotaisPeso">{{resultadosTotaisPeso}}</p>
-    <p id="resultadosTotaisRepeticoes">{{resultadosTotaisRepeticoes}}</p>
-    <p id="resultadosTotaisSeries">{{resultadosTotaisSeries}}</p>
-    <p id="resultadosTotaisDias">{{resultadosTotaisDias}}</p>
+    <p  style="visibility: hidden; id="resultadosTotaisPeso">{{resultadosTotaisPeso}}</p>
+    <p  style="visibility: hidden; id="resultadosTotaisRepeticoes">{{resultadosTotaisRepeticoes}}</p>
+    <p   style="visibility: hidden; id="resultadosTotaisSeries">{{resultadosTotaisSeries}}</p>
+    <p  style="visibility: hidden; id="resultadosTotaisDias">{{resultadosTotaisDias}}</p>
     
 
     <br>
@@ -391,7 +391,7 @@
             a.appendChild(b)
             a.appendChild(q)
             let resultsParagraph = document.createElement('h2')
-            node = document.createTextNode("Semana passada o volume do seu treino foi de "+repeticoesSemanaAnterior[0]*pesosSemanaAnterior[0]*seriesSemanaAnterior[0]+ " séries, seu viado"  )
+            node = document.createTextNode("Semana passada o volume do seu treino foi de "+repeticoesSemanaAnterior[0]*pesosSemanaAnterior[0]*seriesSemanaAnterior[0]+ "  )
             resultsParagraph.appendChild(node)
             a.appendChild(resultsParagraph)
 
