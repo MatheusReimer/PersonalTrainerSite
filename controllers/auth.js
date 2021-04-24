@@ -218,7 +218,6 @@ exports.personal = async(req, res) => {
   
 
 
-   
     exports.userPage = (req, res) => {
         arrayOfExercices = []
         var diaSelecionado = req.body.diaSelecionado
