@@ -218,14 +218,18 @@ exports.personal = async(req, res) => {
   
 
 
+   
     exports.userPage = (req, res) => {
         arrayOfExercices = []
         var diaSelecionado = req.body.diaSelecionado
+        console.log(req.body)
+        repeticoesTotais = req.body.repeticoesTotais;
         
         valor = req.body.peso
         
         console.log(req.cookies["adminUser"])
         if(typeof valor == "string"){valor=valor.split()}
+        if(typeof repeticoesTotais == "string"){repeticoesTotais=repeticoesTotais.split()}
         var exercicios = req.body.weekDay;
        
         var userEmail = req.body.email
@@ -265,13 +269,14 @@ exports.personal = async(req, res) => {
                 db.query('SELECT * FROM planilhausers2 WHERE diaDaSemana =? AND idAluno=? AND exercicio=?',[diaSelecionado,userId,arrayOfExercices[contador]], (error,results) =>{
                     
                     allVariables = results[0]
+                    
                     pesoCheck = results[0].peso
                     
                     ///CASO NAO TENHA NENHUM ELEMENTO NO BANCO DE DADOS
                     
                     if(pesoCheck==0){
                         console.log("valor contador = "+ valor[contador2])
-                        db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
+                        db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? , repeticoes=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,repeticoesTotais[contador2],userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
                      
                             if(error){
                               console.log(error)
@@ -284,7 +289,7 @@ exports.personal = async(req, res) => {
                     }
                     ///CASO JA TENHA UM ELEMENTO NO BANCO DE DADOS
                     else{
-                       db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:allVariables.repeticoes,series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
+                       db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:repeticoesTotais[contador2],series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
                         if(error){console.log(error)}
     
                        }
