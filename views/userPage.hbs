@@ -65,8 +65,14 @@
 
 
     <script>
+
+
+
+
+
         function cookieDelete(){
                                    
+
                     var cookieValue =  localStorage.getItem('emailLogin');
                     
                     document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -139,7 +145,10 @@
     <p style="visibility: hidden;" id="seriesSabadoArray">{{seriesSabado}}</p>
     <p style="visibility: hidden;" id="seriesDomingoArray">{{seriesDomingo}}</p>
 
-
+    <p  style="visibility: hidden;" id="resultadosTotaisPeso">{{resultadosTotaisPeso}}</p>
+    <p  style="visibility: hidden;" id="resultadosTotaisRepeticoes">{{resultadosTotaisRepeticoes}}</p>
+    <p   style="visibility: hidden;" id="resultadosTotaisSeries">{{resultadosTotaisSeries}}</p>
+    <p  style="visibility: hidden;" id="resultadosTotaisDias">{{resultadosTotaisDias}}</p>
     
 
     <br>
@@ -163,15 +172,20 @@
         img = document.getElementById("imgOfSegunda")
         img.src=valueOfSegunda[0]
         */
+
         function display(){
             
             
+
             //LIMPANDO O AVISO
              document.getElementById('lblmess').innerHTML = ""
+
+
             dia = formid.weekDay.selectedIndex
             document.getElementById('diaSelecionado').value = dia
             
             valorSelecionado = formid.weekDay[formid.weekDay.selectedIndex].value
+         
             var splitsOriginal = valorSelecionado.split(',');
             splits = splitsOriginal.filter((value,index,arr)=>arr.indexOf(value)==index);
             var indexesNoArrayOriginal
@@ -181,8 +195,10 @@
                 arrayOfIndexes.push(index)
             }
             
+
             var holder = document.getElementById("holder");
          
+
             a= document.getElementById('holder')
      
             if(a.firstChild){
@@ -195,6 +211,7 @@
            
             
          
+
             for(z=0;z<splits.length;z++){
    
          
@@ -205,8 +222,17 @@
             c.appendChild(node)
             holder.appendChild(c)
             
+
        
+
+
+
+
+
+
            
+
+
             if(dia==1){ imgValue =document.getElementById("imagesSegundaArray").innerHTML; seriesDoDia = document.getElementById("seriesSegundaArray").innerHTML}
             if(dia==2){ imgValue =document.getElementById("imagesTercaArray").innerHTML;seriesDoDia = document.getElementById("seriesTercaArray").innerHTML}
             if(dia==3){ imgValue =document.getElementById("imagesQuartaArray").innerHTML;seriesDoDia = document.getElementById("seriesQuartaArray").innerHTML}
@@ -214,8 +240,9 @@
             if(dia==5){ imgValue =document.getElementById("imagesSextaArray").innerHTML;seriesDoDia = document.getElementById("seriesSextaArray").innerHTML}
             if(dia==6){ imgValue =document.getElementById("imagesSabadoArray").innerHTML;seriesDoDia = document.getElementById("seriesSabadoArray").innerHTML}
             if(dia==7){ imgValue =document.getElementById("imagesDomingoArray").innerHTML;seriesDoDia = document.getElementById("seriesDomingoArray").innerHTML}
+
+
             
-            console.log(splits)
             seriesDoDia = seriesDoDia.split(",")
             seriesDoDiaFormated = []
           
@@ -223,6 +250,7 @@
                 index = arrayOfIndexes[i]
                 seriesDoDiaFormated.push(seriesDoDia[index])
             }  
+            console.log(seriesDoDiaFormated)
             
           
             for(i=0;i<seriesDoDiaFormated[z];i++){
@@ -250,14 +278,27 @@
                 repeticoes.name = "repeticoes" + z;
                 repeticoes.required = true;
                 a.appendChild(repeticoes)
+
                 
             }
+            
+
+            
+
+
+
+
            
             imgValue= imgValue.split(",")
+
+
+
             const images = ["jpg", "gif", "png"]
             const videos = ["mp4", "m4v", "ogg"]
+
             
             const extension = imgValue[z].split(".")[imgValue[z].split(".").length - 1]
+
             if (images.includes(extension)) {
             console.log("imagem")
             img = document.createElement("img")
@@ -274,6 +315,7 @@
             }
             
             
+
             b= document.createElement('input')
             b.setAttribute("type","number");
             b.step = 0.1;
@@ -282,6 +324,7 @@
             
             b.setAttribute("id","t1"+z)
             b.required = true;
+
             q= document.createElement('input')
             q.setAttribute("type","number");
             q.step = 0.1;
@@ -290,13 +333,14 @@
             
             q.setAttribute("id","repeticoesTotais"+z)
             q.required = true;
-            
-            
-           
-            a.appendChild(b)
-            a.appendChild(q)
+
+
+
+
+
             document.getElementById("t1"+z).style.visibility = 'hidden'
             document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
+
             document.getElementById('buttonSubmit').style.visibility = 'visible';
             document.getElementById('dateOfTrain').style.visibility='visible'
             }
@@ -307,6 +351,7 @@
                 document.getElementById('lblmess').innerHTML = "Faça a seleção do seu treino"
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
+
             }
             ///CASO NÃO POSSUA TREINOS
             else{
@@ -314,8 +359,13 @@
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
             }
+
         
+
         }
+
+
+
         isAdmin =document.getElementById('isAdmin').innerHTML
         if(isAdmin==1){
             width =$(window).width();
@@ -324,10 +374,14 @@
           
            if(width>1420) {document.getElementById('registerPage').style.visibility = 'visible'}
          
+
             var button = document.createElement("button");
             button.innerHTML = "Admin Logout";
+
             var body = document.getElementsByClassName("adminLogout")[0]
             body.appendChild(button);
+
+
             button.onclick = function(){
                     var cookieValue =  localStorage.getItem('adminUser');
                     
@@ -335,10 +389,14 @@
                     window.location.replace("/adminCheck");
                     adminIsLogged=false
             };
+
+
          
         }else{
             
         }
+
+
         function somarPesos(){
             
               for(z=0;z<splits.length;z++){
@@ -349,7 +407,7 @@
             total = total+valueToFloat
             
             })
-            document.getElementById("t1"+z).value  = total
+            document.getElementById("t1"+z).value  = total/seriesDoDiaFormated[z]
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             var totalRepeticoes = 0
             repeticoesTotais = document.getElementsByName("repeticoes"+z)
@@ -358,10 +416,11 @@
             console.log(valorRepeticoes.value)
             totalRepeticoes = totalRepeticoes + repeticoesToFloat;
             })
-            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes/seriesDoDiaFormated[z]
              }
         }
        
+
     </script>
     
 
@@ -420,6 +479,11 @@
     <script>
         if(isAdmin==1){
             
+
+
+
+
+
             ul =document.getElementById("ulMenuMobile")
             li=document.createElement("li")
             li.setAttribute("id","liId")
@@ -429,6 +493,7 @@
             a.appendChild(document.createTextNode(a.value))
             li.appendChild((a));
             ul.appendChild(li)
+
             
             ul =document.getElementById("ulMenuMobile")
             li=document.createElement("li")
@@ -439,7 +504,25 @@
             a.appendChild(document.createTextNode(a.value))
             li.appendChild((a));
             ul.appendChild(li)
+
+
+
+
+
+
+
       
+
+
+
+
+
+
+
+
+
+
+
         }
     </script>
 
@@ -454,14 +537,18 @@
                 a++;
                
                     
+
             }
             )
         })
+
+
     
     </script>
     <script>
             function cookieDeleteAdmin(){
                                    
+
                     var cookieValue =  localStorage.getItem('adminUserEmail');
                     
                     document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -480,3 +567,7 @@
 
 
 </html>
+
+
+
+
