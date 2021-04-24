@@ -217,102 +217,103 @@ exports.personal = async(req, res) => {
 
   
 
-exports.userPage = (req, res) => {
-    arrayOfExercices = []
-    var diaSelecionado = req.body.diaSelecionado
+
+    exports.userPage = (req, res) => {
+        arrayOfExercices = []
+        var diaSelecionado = req.body.diaSelecionado
+        
+        valor = req.body.peso
+        
+        console.log(req.cookies["adminUser"])
+        if(typeof valor == "string"){valor=valor.split()}
+        var exercicios = req.body.weekDay;
+       
+        var userEmail = req.body.email
     
-    valor = req.body.peso
+        if(req.cookies['adminUser']!=null){
+            userEmail=req.cookies['adminUser']
+        } 
     
-    console.log(req.cookies["adminUser"])
-    if(typeof valor == "string"){valor=valor.split()}
-    var exercicios = req.body.weekDay;
-   
-    var userEmail = req.body.email
-
-    if(req.cookies['adminUser']!=null){
-        userEmail=req.cookies['adminUser']
-    } 
-
-    var dateOfExercises = req.body.dateOfTrain
+        var dateOfExercises = req.body.dateOfTrain
+        
+        arrayOfExercices = exercicios.split(",")
+        arrayOfExercices = arrayOfExercices.filter(function(elem, pos) {
+            return arrayOfExercices.indexOf(elem) == pos;
+        })
+        console.log("tamanho do array de exercicios" + arrayOfExercices.length)
+        console.log("exercicios: "  +arrayOfExercices)
+        contador =0
     
-    arrayOfExercices = exercicios.split(",")
-    arrayOfExercices = arrayOfExercices.filter(function(elem, pos) {
-        return arrayOfExercices.indexOf(elem) == pos;
-    })
-    console.log("tamanho do array de exercicios" + arrayOfExercices.length)
-    console.log("exercicios: "  +arrayOfExercices)
-    contador =0
-
-    
- 
-     db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
-         
-         resultadosGerais = results[0];
-        if(resultadosGerais==null){
-          res.render('userPage',{
-              message:"Usuário inexistente"
-          })
-          console.log(error)
-      }else{
-      const userId = results[0].id;
-      contador2=0;
-           
-          
-             for(count=0;count<arrayOfExercices.length;count++){
-
-                 //SELECT NO  PESO
-            db.query('SELECT * FROM planilhausers2 WHERE diaDaSemana =? AND idAluno=? AND exercicio=?',[diaSelecionado,userId,arrayOfExercices[contador]], (error,results) =>{
-                
-                allVariables = results[0]
-                pesoCheck = results[0].peso
-                
-                ///CASO NAO TENHA NENHUM ELEMENTO NO BANCO DE DADOS
-                
-                if(pesoCheck==0){
-                    console.log("valor contador = "+ valor[contador2])
-                    db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
-                 
-                        if(error){
-                          console.log(error)
-                        }else{
-                         
-                           
-                        }
-                    })
-                    contador2++
-                }
-                ///CASO JA TENHA UM ELEMENTO NO BANCO DE DADOS
-                else{
-                   db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:allVariables.repeticoes,series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
-                    if(error){console.log(error)}
-
-                   }
-                    
-                )
-                contador2++;
-                }
+        
+     
+         db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
+             
+             resultadosGerais = results[0];
+            if(resultadosGerais==null){
+              res.render('userPage',{
+                  message:"Usuário inexistente"
+              })
+              console.log(error)
+          }else{
+          const userId = results[0].id;
+          contador2=0;
                
-            })
-            
-             
-             contador++;
-             
-             
-         }
-         
-        }
-     
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-        await delay(2000)
-        res.status(200).redirect("/userPage")
-     
-     })
-     
+              
+                 for(count=0;count<arrayOfExercices.length;count++){
     
-
-    }
-
-
+                     //SELECT NO  PESO
+                db.query('SELECT * FROM planilhausers2 WHERE diaDaSemana =? AND idAluno=? AND exercicio=?',[diaSelecionado,userId,arrayOfExercices[contador]], (error,results) =>{
+                    
+                    allVariables = results[0]
+                    pesoCheck = results[0].peso
+                    
+                    ///CASO NAO TENHA NENHUM ELEMENTO NO BANCO DE DADOS
+                    
+                    if(pesoCheck==0){
+                        console.log("valor contador = "+ valor[contador2])
+                        db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
+                     
+                            if(error){
+                              console.log(error)
+                            }else{
+                             
+                               
+                            }
+                        })
+                        contador2++
+                    }
+                    ///CASO JA TENHA UM ELEMENTO NO BANCO DE DADOS
+                    else{
+                       db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:allVariables.repeticoes,series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
+                        if(error){console.log(error)}
+    
+                       }
+                        
+                    )
+                    contador2++;
+                    }
+                   
+                })
+                
+                 
+                 contador++;
+                 
+                 
+             }
+             
+            }
+         
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            await delay(2000)
+            res.status(200).redirect("/userPage")
+         
+         })
+         
+        
+    
+        }
+    
+    
 
 
 
