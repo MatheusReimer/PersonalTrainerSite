@@ -336,64 +336,11 @@
 
 
 
-            ////////////////////////////////////// FICOU CONFUSO, COMO MELHORAR?
-            /// DESCRIÇÃO: DIAS ORDENADOS POSSUI TODOS OS DIAS PORÉM SÓ QUERO OS DIAS QUE BATEM COM O DIA DA SEMANA DO SELECT QUE ESTOU SELECIONANDO (VARIÁVEL DIA)
-            /// PARA SABER QUAIS OS ÍNDICES QUE PRECISO PEGAR DO PESO, SERIES E REPETICOES, PRECISO SABER QUAIS OS ÚLTIMOS VALORES INSERIDOS NA TABELA, ISSO DENTRO DO DIA DA SEMANA DESEJADO
-            ///LOGO, A VARIAVEL INDEXES TO GRAB REGISTRA TODOS OS INDICES QUE BATEM COM O DIA DA SEMANA DESEJADO, PORÉM DE VÁRIAS SEMANAS DIFERENTES E EU SÓ QUERO DA ÚLTIMA SEMANA
-            /// DESSA FORMA, O VETOR AJUSTADO RECEBE SOMENTE OS VALORES CORRETOS DOS ÍNDICES
-
-
-            let diasOrdenados = document.getElementById("resultadosTotaisDias").innerHTML
-            diasOrdenados = diasOrdenados.split(",")
-            indexesToGrab = []
-            while(diasOrdenados[i]!=dia){
-                i++;
-            }
-
-            for(i=0;i<diasOrdenados.length;i++){
-                if(diasOrdenados[i]!=dia){
-
-                }
-                else{
-                    while(diasOrdenados[i]==dia){
-                        indexesToGrab.push(i)
-                        i++
-                    }
-                }
-            }
-            let indexesToGrabAdjusted = []
-            let counter = 1;
-            indexesToGrabAdjusted.push(indexesToGrab[0])
-            while(indexesToGrab[counter]-1 ==  indexesToGrab[counter-1]){
-                indexesToGrabAdjusted.push(indexesToGrab[counter])
-                counter++;
-            }
-            pesosArrayOrdenado = document.getElementById("resultadosTotaisPeso").innerHTML
-            repeticoesArrayOrdenado = document.getElementById("resultadosTotaisRepeticoes").innerHTML
-            seriesArrayOrdenado = document.getElementById("resultadosTotaisSeries").innerHTML
-            pesosArrayOrdenado = pesosArrayOrdenado.split(",")
-            repeticoesArrayOrdenado = repeticoesArrayOrdenado.split(",")
-            seriesArrayOrdenado = seriesArrayOrdenado.split(",")
-
-            pesosSemanaAnterior = []
-            repeticoesSemanaAnterior = []
-            seriesSemanaAnterior = []
-            for(i=0;i<indexesToGrabAdjusted.length;i++){
-            pesosSemanaAnterior.push(pesosArrayOrdenado[indexesToGrabAdjusted[i]])
-            repeticoesSemanaAnterior.push(repeticoesArrayOrdenado[indexesToGrabAdjusted[i]])
-            seriesSemanaAnterior.push(seriesArrayOrdenado[indexesToGrabAdjusted[i]])
-            }
             
-
 
             a.appendChild(b)
             a.appendChild(q)
-            let resultsParagraph = document.createElement('h2')
-            node = document.createTextNode("Semana passada o volume do seu treino foi de "+repeticoesSemanaAnterior[0]*pesosSemanaAnterior[0]*seriesSemanaAnterior[0]  )
-            resultsParagraph.appendChild(node)
-            
-            //a.appendChild(resultsParagraph)
-
+         
 
             document.getElementById("t1"+z).style.visibility = 'hidden'
             document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
