@@ -1854,3 +1854,11 @@ th{
     }
     
 }
+#holder button{
+   background-color: rgb(4, 153, 12);
+   width: 60%;
+   margin-left: 20%;
+   margin-bottom: 20px;
+   border-radius: 7px;
+   border: none;
+}
