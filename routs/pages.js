@@ -167,9 +167,10 @@ router.get('/userPage',authFunct,async (req,res) =>{
     let resultadosTotaisRepeticoesEmOrdem =[];
     let resultadosTotaisSeriesEmOrdem =[];
     let resultadosTotaisDiasEmOrdem =[];
-    
-    
+    let resultadosExerciciosEmOrdem =[]
+    let volumes = []
     var arrayOfCookies = req.cookies['myEmail'];
+    var biarray
 
     await db.query('SELECT * FROM planilhausers2 WHERE idAluno= ? ORDER BY dateOfExercise DESC',[loggedUserId],async(error,results) =>{
         if(error){console.log(error)}
@@ -179,15 +180,25 @@ router.get('/userPage',authFunct,async (req,res) =>{
             resultadosTotaisRepeticoesEmOrdem.push( results[i].repeticoes);
             resultadosTotaisSeriesEmOrdem.push( results[i].series);
             resultadosTotaisDiasEmOrdem.push( results[i].diaDaSemana);
+            resultadosExerciciosEmOrdem.push(results[i].exercicio)
             }
+            
           
         }
+         
+        for(var i = 0; i < resultadosTotaisDiasEmOrdem.length; i++){
+            var value = resultadosTotaisPesoEmOrdem[i] * resultadosTotaisRepeticoesEmOrdem[i] * resultadosTotaisSeriesEmOrdem[i];
+            volumes[i] = value;
+        }
+       
+       
     })
+    
  
    
  
     await delay(3000);
-    return res.render('userPage',  {name: arrayOfCookies,resultadosTotaisDias:resultadosTotaisDiasEmOrdem,resultadosTotaisPeso:resultadosTotaisPesoEmOrdem,resultadosTotaisRepeticoes:resultadosTotaisRepeticoesEmOrdem,resultadosTotaisSeries:resultadosTotaisSeriesEmOrdem, admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
+    return res.render('userPage',  {name: arrayOfCookies,volumes:volumes,resultadosExerciciosEmOrdem:resultadosExerciciosEmOrdem,resultadosTotaisSeries:resultadosTotaisSeriesEmOrdem, admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
     })
    
 
