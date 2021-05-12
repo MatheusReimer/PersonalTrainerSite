@@ -79,7 +79,7 @@
         }
     </script>
      <div class="introUserPage">
-    <h3>Olá {{name}} por favor, informe o treino feito hoje</h3>
+    <h3>Olá {{nameOfUser}} por favor, informe o treino feito hoje</h3>
   
     </div>
     <div class="backgroundDiv">
@@ -113,7 +113,7 @@
     </select>
     <br>
     
-    <input type="hidden" value="{{name}}" name="email">
+    <input type="hidden" value="{{nameOfUser}}" name="nome">
     <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;">
   
     
@@ -618,6 +618,17 @@
                     
                     document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
         }
+    </script>
+
+
+
+
+    <script>
+
+        function loginExpires(){
+            console.log(document.cookie);
+        }
+        setInterval(loginExpires, 10000);
     </script>
   
     <script src="../app.js"></script>
