@@ -71,9 +71,11 @@ router.get('/userPage',authFunct,async (req,res) =>{
     contador= 1;
 
     admin=0
-
-
-  
+    let nameToDisplay;
+    await db.query('SELECT name FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
+    nameToDisplay = results[0].name
+    
+    })
     
     await db.query('SELECT admin FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
         admin = results[0].admin
@@ -198,12 +200,13 @@ router.get('/userPage',authFunct,async (req,res) =>{
    
  
     await delay(3000);
-    return res.render('userPage',  {name: arrayOfCookies,volumes:volumes,resultadosExerciciosEmOrdem:resultadosExerciciosEmOrdem,resultadosTotaisSeries:resultadosTotaisSeriesEmOrdem, admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
+    return res.render('userPage',  {nameOfUser:nameToDisplay,name: arrayOfCookies,volumes:volumes,resultadosExerciciosEmOrdem:resultadosExerciciosEmOrdem,resultadosTotaisSeries:resultadosTotaisSeriesEmOrdem, admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
     })
    
 
 
 })
+
 
 
 router.get('/personal',authFunct,isAdmin,(req,res) =>{
