@@ -98,7 +98,7 @@
         <h4 class="successMsgPlan"> {{message2}}</h4>
     {{/if}}
     
-   <form name="formid"  class="formUserPage" method="POST" action="/auth/userPage">
+   <form name="formid" id="formid" class="formUserPage" method="POST" action="/auth/userPage">
    <select id="weekDay" name="weekDay" onchange="display()" class="weekDay">
                  <option value="menu">Treino de hoje</option>
                  <option  id="weekDayOptions" value="{{exercisesSegunda}}">Segunda-feira</option>
@@ -270,8 +270,8 @@
                 a.appendChild(newParagraph)
                 repeticoes = document.createElement('input')
                 repeticoes.setAttribute("type","number");
-                repeticoes.step = 0.1;
-                repeticoes.min = 0;
+                repeticoes.step = 1;
+                repeticoes.min = 1;
                 repeticoes.setAttribute("id","repeticoes"+z)
                 repeticoes.name = "repeticoes" + z;
                 repeticoes.required = true;
@@ -352,6 +352,7 @@
             
             
             button = document.createElement('button')
+            button.type = "button";
             button.innerHTML =' Clique aqui:  o volume desta semana é:'
             button.addEventListener("click", teste);
             button.id = "buttonToAppend"+z;
@@ -400,6 +401,7 @@
          
 
             var button = document.createElement("button");
+            button.type = "button";
             button.innerHTML = "Admin Logout";
 
             var body = document.getElementsByClassName("adminLogout")[0]
@@ -488,7 +490,24 @@
 
     </script>
     
-
+    <script>
+        //Required attribute fallback
+        $('#formid').submit(function() {
+        if (!attributeSupported("required") || ($.browser.safari)) {
+        //If required attribute is not supported or browser is Safari 
+        //(Safari thinks that it has this attribute, but it does not work), 
+        //then check all fields that has required attribute
+        $("#formid [required]").each(function(index) {
+            if (!$(this).val()) {
+            //If at least one required value is empty, then ask to fill all required fields.
+            alert("Please fill all required fields.");
+            return false;
+            }
+        });
+        }
+        return false; //This is a test form and I'm not going to submit it
+        });
+    </script>
 
 
 
