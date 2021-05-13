@@ -114,7 +114,7 @@
     <br>
     
     <input type="hidden" value="{{name}}" name="email">
-    <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;">
+    <input type="date" id="dateOfTrain" name="dateOfTrain"  style="visibility: hidden;">
   
     
       <input type="hidden" id="diaSelecionado" name="diaSelecionado">
@@ -262,7 +262,7 @@
                 valoresDasSeries.min = 0;
                 valoresDasSeries.setAttribute("id","valoresDasSeries"+z)
                 valoresDasSeries.name = "valoresDasSeries" + z;
-                valoresDasSeries.required = true;
+               
                 a.appendChild(valoresDasSeries)
                 newParagraph = document.createElement('p')
                 node = document.createTextNode("Repetições na série: " + (i+1))
@@ -274,7 +274,7 @@
                 repeticoes.min = 0;
                 repeticoes.setAttribute("id","repeticoes"+z)
                 repeticoes.name = "repeticoes" + z;
-                repeticoes.required = true;
+             
                 a.appendChild(repeticoes)
 
                 
@@ -328,7 +328,7 @@
             q.step = 0.1;
             q.min = 0;
             q.name = "repeticoesTotais";
-            q.required = false;
+          
             q.setAttribute("id","repeticoesTotais"+z)
            
 
