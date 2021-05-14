@@ -12,8 +12,7 @@ const db = mysql.createConnection({
 
 
 
-
-exports.login =  (req, res) => {
+exports.login = async (req, res) => {
     try {
         const{email, password} = req.body;
 
@@ -28,18 +27,8 @@ exports.login =  (req, res) => {
             })
             
         }
- 
-        
         db.query('SELECT * FROM users2 WHERE email = ?' , [email], async(error,results) =>{
-            if(results.length<1){
-                res.clearCookie('myEmail');
-                res.status(401).render('login', {
-                    message:'Email or password is incorrect'
-                    
-                    
-                })
-            }else{
-
+            console.log(results);
             if(!results || !(await bcrypt.compare(password,results[0].password))){
                 res.clearCookie('myEmail');
                 res.status(401).render('login', {
@@ -66,7 +55,6 @@ exports.login =  (req, res) => {
                 res.status(200).redirect("/userPage")
 
             }
-        }
         })
     } catch (error) {
         console.log(error)
@@ -77,7 +65,6 @@ exports.login =  (req, res) => {
   
 
 }
-
 
 
 
@@ -230,107 +217,102 @@ exports.personal = async(req, res) => {
 
   
 
+exports.userPage = (req, res) => {
+    arrayOfExercices = []
+    var diaSelecionado = req.body.diaSelecionado
+    
+    valor = req.body.peso
+    
+    console.log(req.cookies["adminUser"])
+    if(typeof valor == "string"){valor=valor.split()}
+    var exercicios = req.body.weekDay;
+   
+    var userEmail = req.body.email
 
-    exports.userPage = (req, res) => {
-        arrayOfExercices = []
-        var diaSelecionado = req.body.diaSelecionado
-        console.log(req.body)
-        repeticoesTotais = req.body.repeticoesTotais;
-        
-        valor = req.body.peso
-        
-        console.log(req.cookies["adminUser"])
-        if(typeof valor == "string"){valor=valor.split()}
-        if(typeof repeticoesTotais == "string"){repeticoesTotais=repeticoesTotais.split()}
-        var exercicios = req.body.weekDay;
-       
-        var userEmail = req.body.email
+    if(req.cookies['adminUser']!=null){
+        userEmail=req.cookies['adminUser']
+    } 
+
+    var dateOfExercises = req.body.dateOfTrain
     
-        if(req.cookies['adminUser']!=null){
-            userEmail=req.cookies['adminUser']
-        } 
+    arrayOfExercices = exercicios.split(",")
+    arrayOfExercices = arrayOfExercices.filter(function(elem, pos) {
+        return arrayOfExercices.indexOf(elem) == pos;
+    })
+    console.log("tamanho do array de exercicios" + arrayOfExercices.length)
+    console.log("exercicios: "  +arrayOfExercices)
+    contador =0
+
     
-        var dateOfExercises = req.body.dateOfTrain
-        
-        arrayOfExercices = exercicios.split(",")
-        arrayOfExercices = arrayOfExercices.filter(function(elem, pos) {
-            return arrayOfExercices.indexOf(elem) == pos;
-        })
-        console.log("tamanho do array de exercicios" + arrayOfExercices.length)
-        console.log("exercicios: "  +arrayOfExercices)
-        contador =0
-    
-        
-     
-         db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
-             
-             resultadosGerais = results[0];
-            if(resultadosGerais==null){
-              res.render('userPage',{
-                  message:"Usuário inexistente"
-              })
-              console.log(error)
-          }else{
-          const userId = results[0].id;
-          contador2=0;
-               
-              
-                 for(count=0;count<arrayOfExercices.length;count++){
-    
-                     //SELECT NO  PESO
-                db.query('SELECT * FROM planilhausers2 WHERE diaDaSemana =? AND idAluno=? AND exercicio=?',[diaSelecionado,userId,arrayOfExercices[contador]], (error,results) =>{
-                    
-                    allVariables = results[0]
-                    
-                    pesoCheck = results[0].peso
-                    
-                    ///CASO NAO TENHA NENHUM ELEMENTO NO BANCO DE DADOS
-                    
-                    if(pesoCheck==0){
-                        console.log("valor contador = "+ valor[contador2])
-                        db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? , repeticoes=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,repeticoesTotais[contador2],userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
-                     
-                            if(error){
-                              console.log(error)
-                            }else{
-                             
-                               
-                            }
-                        })
-                        contador2++
-                    }
-                    ///CASO JA TENHA UM ELEMENTO NO BANCO DE DADOS
-                    else{
-                       db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:repeticoesTotais[contador2],series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
-                        if(error){console.log(error)}
-    
-                       }
-                        
-                    )
-                    contador2++;
-                    }
-                   
-                })
+ 
+     db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
+         
+         resultadosGerais = results[0];
+        if(resultadosGerais==null){
+          res.render('userPage',{
+              message:"Usuário inexistente"
+          })
+          console.log(error)
+      }else{
+      const userId = results[0].id;
+      contador2=0;
+           
+          
+             for(count=0;count<arrayOfExercices.length;count++){
+
+                 //SELECT NO  PESO
+            db.query('SELECT * FROM planilhausers2 WHERE diaDaSemana =? AND idAluno=? AND exercicio=?',[diaSelecionado,userId,arrayOfExercices[contador]], (error,results) =>{
                 
+                allVariables = results[0]
+                pesoCheck = results[0].peso
+                
+                ///CASO NAO TENHA NENHUM ELEMENTO NO BANCO DE DADOS
+                
+                if(pesoCheck==0){
+                    console.log("valor contador = "+ valor[contador2])
+                    db.query('UPDATE planilhausers2 SET peso =?,dateOfExercise=? WHERE idAluno =? AND diaDaSemana=? AND exercicio=?'  , [valor[contador2],dateOfExercises,userId,diaSelecionado,arrayOfExercices[contador2]], (error,results) =>{
                  
-                 contador++;
-                 
-                 
-             }
+                        if(error){
+                          console.log(error)
+                        }else{
+                         
+                           
+                        }
+                    })
+                    contador2++
+                }
+                ///CASO JA TENHA UM ELEMENTO NO BANCO DE DADOS
+                else{
+                   db.query('INSERT INTO planilhausers2 SET ?', {exercicio:allVariables.exercicio, idAluno:userId,membro:allVariables.membro,peso:valor[contador2],repeticoes:allVariables.repeticoes,series:allVariables.series,dateofExercise:dateOfExercises, diaDaSemana:allVariables.diaDaSemana}, (error,results) =>{
+                    if(error){console.log(error)}
+
+                   }
+                    
+                )
+                contador2++;
+                }
+               
+            })
+            
              
-            }
+             contador++;
+             
+             
+         }
          
-            const delay = ms => new Promise(res => setTimeout(res, ms));
-            await delay(2000)
-            res.status(200).redirect("/userPage")
-         
-         })
-         
-        
-    
         }
+     
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        await delay(2000)
+        res.status(200).redirect("/userPage")
+     
+     })
+     
     
-    
+
+    }
+
+
 
 
 
