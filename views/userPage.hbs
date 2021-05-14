@@ -65,14 +65,8 @@
 
 
     <script>
-
-
-
-
-
         function cookieDelete(){
                                    
-
                     var cookieValue =  localStorage.getItem('emailLogin');
                     
                     document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -169,15 +163,11 @@
         img = document.getElementById("imgOfSegunda")
         img.src=valueOfSegunda[0]
         */
-
         function display(){
             
             
-
             //LIMPANDO O AVISO
              document.getElementById('lblmess').innerHTML = ""
-
-
             dia = formid.weekDay.selectedIndex
             document.getElementById('diaSelecionado').value = dia
             
@@ -191,10 +181,8 @@
                 arrayOfIndexes.push(index)
             }
             
-
             var holder = document.getElementById("holder");
          
-
             a= document.getElementById('holder')
      
             if(a.firstChild){
@@ -207,7 +195,6 @@
            
             
          
-
             for(z=0;z<splits.length;z++){
    
          
@@ -218,17 +205,8 @@
             c.appendChild(node)
             holder.appendChild(c)
             
-
        
-
-
-
-
-
-
            
-
-
             if(dia==1){ imgValue =document.getElementById("imagesSegundaArray").innerHTML; seriesDoDia = document.getElementById("seriesSegundaArray").innerHTML}
             if(dia==2){ imgValue =document.getElementById("imagesTercaArray").innerHTML;seriesDoDia = document.getElementById("seriesTercaArray").innerHTML}
             if(dia==3){ imgValue =document.getElementById("imagesQuartaArray").innerHTML;seriesDoDia = document.getElementById("seriesQuartaArray").innerHTML}
@@ -236,8 +214,6 @@
             if(dia==5){ imgValue =document.getElementById("imagesSextaArray").innerHTML;seriesDoDia = document.getElementById("seriesSextaArray").innerHTML}
             if(dia==6){ imgValue =document.getElementById("imagesSabadoArray").innerHTML;seriesDoDia = document.getElementById("seriesSabadoArray").innerHTML}
             if(dia==7){ imgValue =document.getElementById("imagesDomingoArray").innerHTML;seriesDoDia = document.getElementById("seriesDomingoArray").innerHTML}
-
-
             
             console.log(splits)
             seriesDoDia = seriesDoDia.split(",")
@@ -268,32 +244,20 @@
                 a.appendChild(newParagraph)
                 repeticoes = document.createElement('input')
                 repeticoes.setAttribute("type","number");
-                repeticoes.step = 0.1;
-                repeticoes.min = 0;
+                repeticoes.step = 1;
+                repeticoes.min = 1;
                 repeticoes.setAttribute("id","repeticoes"+z)
                 repeticoes.name = "repeticoes" + z;
                 repeticoes.required = true;
                 a.appendChild(repeticoes)
-
                 
             }
-
-
-
-
-
-
            
             imgValue= imgValue.split(",")
-
-
-
             const images = ["jpg", "gif", "png"]
             const videos = ["mp4", "m4v", "ogg"]
-
             
             const extension = imgValue[z].split(".")[imgValue[z].split(".").length - 1]
-
             if (images.includes(extension)) {
             console.log("imagem")
             img = document.createElement("img")
@@ -310,7 +274,6 @@
             }
             
             
-
             b= document.createElement('input')
             b.setAttribute("type","number");
             b.step = 0.1;
@@ -319,7 +282,6 @@
             
             b.setAttribute("id","t1"+z)
             b.required = true;
-
             q= document.createElement('input')
             q.setAttribute("type","number");
             q.step = 0.1;
@@ -333,10 +295,8 @@
            
             a.appendChild(b)
             a.appendChild(q)
-
             document.getElementById("t1"+z).style.visibility = 'hidden'
             document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
-
             document.getElementById('buttonSubmit').style.visibility = 'visible';
             document.getElementById('dateOfTrain').style.visibility='visible'
             }
@@ -347,7 +307,6 @@
                 document.getElementById('lblmess').innerHTML = "Faça a seleção do seu treino"
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
-
             }
             ///CASO NÃO POSSUA TREINOS
             else{
@@ -355,13 +314,8 @@
                 document.getElementById('buttonSubmit').style.visibility = 'hidden';
                 document.getElementById('dateOfTrain').style.visibility='hidden'
             }
-
         
-
         }
-
-
-
         isAdmin =document.getElementById('isAdmin').innerHTML
         if(isAdmin==1){
             width =$(window).width();
@@ -370,14 +324,10 @@
           
            if(width>1420) {document.getElementById('registerPage').style.visibility = 'visible'}
          
-
             var button = document.createElement("button");
             button.innerHTML = "Admin Logout";
-
             var body = document.getElementsByClassName("adminLogout")[0]
             body.appendChild(button);
-
-
             button.onclick = function(){
                     var cookieValue =  localStorage.getItem('adminUser');
                     
@@ -385,15 +335,11 @@
                     window.location.replace("/adminCheck");
                     adminIsLogged=false
             };
-
-
          
         }else{
             
         }
-
-
-   function somarPesos(){
+function somarPesos(){
             
               for(z=0;z<splits.length;z++){
             var total=0;
@@ -417,153 +363,9 @@
         }
        
        
-
     </script>
     
 
-
-
-
-
-
-
-
-
-    
-    <!------------------------------------- FOOTER ----------------------------------------------------------------------->
-    <a href="https://api.whatsapp.com/send?phone=554791411387&text=Olá%21%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20à%20respeito%20do%20personal." class="float" target="_blank">
-        <i class="fa fa-whatsapp my-float"></i>
-        </a>
-
-
-        <div class="footer__container">
-            <div class="footer__links">
-                <div class="footer__link--wrapper">
-                    
-                    <div class="footer__link--items">
-                      
-                        <a href="/" id="footer__logo">Pavanello Personal Trainer</a>
-                        <p class="website__rights">© Pavanello Personal. Todos os direitos reservados.</p>
-                        <div class="social__icons">
-                                     <a href="https://www.instagram.com/pavanello.personal/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.facebook.com/andrei.pavanello" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
-                           <a href="/contacts" class="social__icon--link" target="_blank"><i class="fab fa-google"></i></a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-    
-           
-    
-        </div>
-
-
-
-   
-    <!----------------------------------- MOBILE ------------------------------------------------------>
- <div class ="toggle" ></div>
-    <div class ="overlay"></div>
-    <div class = "menuMobile">
-        <ul id="ulMenuMobile">
-            <li><a href="/">Home</a></li>
-            <li><a href="/userStats">Progresso</a></li>
-            <li><a href="/login" onclick="cookieDelete(),cookieDeleteAdmin()">Logout</a></li>
-           
-           
-        </ul>
-    </div>
-    <script>
-        if(isAdmin==1){
-            
-
-
-
-
-
-            ul =document.getElementById("ulMenuMobile")
-            li=document.createElement("li")
-            li.setAttribute("id","liId")
-            a = document.createElement("a")
-            a.value="Admin"
-            a.href = "/adminCheck"
-            a.appendChild(document.createTextNode(a.value))
-            li.appendChild((a));
-            ul.appendChild(li)
-
-            
-            ul =document.getElementById("ulMenuMobile")
-            li=document.createElement("li")
-            li.setAttribute("id","liId")
-            a = document.createElement("a")
-            a.value="Registrar"
-            a.href = "/register"
-            a.appendChild(document.createTextNode(a.value))
-            li.appendChild((a));
-            ul.appendChild(li)
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-        }
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript">
-    var a=0
-        $(document).ready(function(){
-            $('.toggle').click(function(){
-                $('.toggle').toggleClass('active')
-                $('.overlay').toggleClass('active')
-                $('.menuMobile').toggleClass('active')
-                a++;
-               
-                    
-
-            }
-            )
-        })
-
-
-    
-    </script>
-    <script>
-            function cookieDeleteAdmin(){
-                                   
-
-                    var cookieValue =  localStorage.getItem('adminUserEmail');
-                    
-                    document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
-        }
-    </script>
-  
-    <script src="../app.js"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-
-        
-
-
-
-
-</body>
-
-
-</html>
 
 
 
