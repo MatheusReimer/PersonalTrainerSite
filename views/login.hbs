@@ -74,7 +74,7 @@
             </div>
           
             <div class="loginBtn">
-            <button type="submit" onclick="rememberMeClicked(120)">Entrar</button>
+            <button type="submit" onclick="rememberMeClicked()">Entrar</button>
             </div>
 
            
@@ -91,21 +91,11 @@
         
     </div>
     <script>
-     function rememberMeClicked(minutes){
-        var name="myEmail";
-        var cookieValue = escape(document.getElementById("emailLogin").value);
-        if (minutes) {
-        var date = new Date();
-        date.setTime(date.getTime()+(minutes*60*1000));
-        var expires = "; expires="+date.toGMTString();
-        }   else {
-        var expires = "";
-    }
-        document.cookie = name+"="+cookieValue+expires+"; path=/";
+    function rememberMeClicked(){
     
     
-    
- 
+    var cookieValue = escape(document.getElementById("emailLogin").value);
+    document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2040,12,25).toUTCString();
 
 
     

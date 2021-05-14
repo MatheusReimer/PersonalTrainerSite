@@ -79,7 +79,7 @@
         }
     </script>
      <div class="introUserPage">
-    <h3>Olá {{nameOfUser}} por favor, informe o treino feito hoje</h3>
+    <h3>Olá {{name}} por favor, informe o treino feito hoje</h3>
   
     </div>
     <div class="backgroundDiv">
@@ -98,7 +98,7 @@
         <h4 class="successMsgPlan"> {{message2}}</h4>
     {{/if}}
     
-   <form name="formid" id="formid" class="formUserPage" method="POST" action="/auth/userPage">
+   <form name="formid"  class="formUserPage" method="POST" action="/auth/userPage">
    <select id="weekDay" name="weekDay" onchange="display()" class="weekDay">
                  <option value="menu">Treino de hoje</option>
                  <option  id="weekDayOptions" value="{{exercisesSegunda}}">Segunda-feira</option>
@@ -114,7 +114,7 @@
     <br>
     
     <input type="hidden" value="{{name}}" name="email">
-    <input type="date" id="dateOfTrain" name="dateOfTrain"  style="visibility: hidden;"required>
+    <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;">
   
     
       <input type="hidden" id="diaSelecionado" name="diaSelecionado">
@@ -127,7 +127,7 @@
           <label id="lblmess"></label>
           
            
-             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;" onclick="somarPesos()"  pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"> 
+             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;" onclick="somarPesos()"> 
        
     <p style="visibility: hidden;" id="imagesSegundaArray">{{imagesSegunda}}</p>
     <p  style="visibility: hidden;" id="imagesTercaArray">{{imagesTerca}}</p>
@@ -145,9 +145,7 @@
     <p style="visibility: hidden;" id="seriesSabadoArray">{{seriesSabado}}</p>
     <p style="visibility: hidden;" id="seriesDomingoArray">{{seriesDomingo}}</p>
 
-    <p  style="visibility: hidden;" id="volumes">{{volumes}}</p>
-    <p  style="visibility: hidden;" id="resultadosExerciciosEmOrdem">{{resultadosExerciciosEmOrdem}}</p>
-    
+
     
 
     <br>
@@ -184,7 +182,6 @@
             document.getElementById('diaSelecionado').value = dia
             
             valorSelecionado = formid.weekDay[formid.weekDay.selectedIndex].value
-         
             var splitsOriginal = valorSelecionado.split(',');
             splits = splitsOriginal.filter((value,index,arr)=>arr.indexOf(value)==index);
             var indexesNoArrayOriginal
@@ -242,6 +239,7 @@
 
 
             
+            console.log(splits)
             seriesDoDia = seriesDoDia.split(",")
             seriesDoDiaFormated = []
           
@@ -270,8 +268,8 @@
                 a.appendChild(newParagraph)
                 repeticoes = document.createElement('input')
                 repeticoes.setAttribute("type","number");
-                repeticoes.step = 1;
-                repeticoes.min = 1;
+                repeticoes.step = 0.1;
+                repeticoes.min = 0;
                 repeticoes.setAttribute("id","repeticoes"+z)
                 repeticoes.name = "repeticoes" + z;
                 repeticoes.required = true;
@@ -279,9 +277,8 @@
 
                 
             }
-            
 
-            
+
 
 
 
@@ -321,47 +318,21 @@
             b.name = "peso"
             
             b.setAttribute("id","t1"+z)
-           
+            b.required = true;
 
             q= document.createElement('input')
             q.setAttribute("type","number");
             q.step = 0.1;
             q.min = 0;
             q.name = "repeticoesTotais";
-            q.required = false;
+            
             q.setAttribute("id","repeticoesTotais"+z)
+            q.required = true;
+            
+            
            
-
-            //SÓ PEGAR A PRIMEIRA APARIÇÃO
-            volumes = document.getElementById("volumes").innerHTML
-            resultadosExerciciosEmOrdem = document.getElementById("resultadosExerciciosEmOrdem").innerHTML
-            volumes =volumes.split(",")
-            resultadosExerciciosEmOrdem = resultadosExerciciosEmOrdem.split(",")
-            let indice;
-
-            // biarray = volumes.map(function(v,i) {
-            //return [v, resultadosExerciciosEmOrdem[i]];
-            //});
-            indexToShow = (resultadosExerciciosEmOrdem.indexOf(splits[z]))
-            volumesToShow = volumes[indexToShow] 
-            console.log(volumesToShow)
-
-            paragraph = document.createElement('h2')
-            node =document.createTextNode("Volume da semana passada: "+ volumesToShow )
-            paragraph.appendChild(node)
-            
-            
-            button = document.createElement('button')
-            button.type = "button";
-            button.innerHTML =' Clique aqui:  o volume desta semana é:'
-            button.addEventListener("click", teste);
-            button.id = "buttonToAppend"+z;
-
-            a.appendChild(paragraph)        
             a.appendChild(b)
             a.appendChild(q)
-            a.appendChild(button)
-         
 
             document.getElementById("t1"+z).style.visibility = 'hidden'
             document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
@@ -401,7 +372,6 @@
          
 
             var button = document.createElement("button");
-            button.type = "button";
             button.innerHTML = "Admin Logout";
 
             var body = document.getElementsByClassName("adminLogout")[0]
@@ -423,47 +393,6 @@
         }
 
 
-        function teste(){
-            for(z=0;z<splits.length;z++){
-            var total=0;
-            values = document.getElementsByName("valoresDasSeries"+z)
-            values.forEach((valoresDasSeries)=>{
-            valueToFloat = parseFloat(valoresDasSeries.value)
-            total = total+valueToFloat
-            })
-
-            var totalRepeticoes = 0
-            repeticoesTotais = document.getElementsByName("repeticoes"+z)
-            repeticoesTotais.forEach((valorRepeticoes)=>{
-            repeticoesToFloat = parseFloat(valorRepeticoes.value)
-            
-            totalRepeticoes = totalRepeticoes + repeticoesToFloat;
-            
-            })
-            
-            father = document.getElementById("buttonToAppend"+z)
-             if(father.firstChild){
-                
-                father.innerHTML=' Clique aqui:  o volume desta semana é:'
-                
-            }
-            volumeDaSemana = ((total/seriesDoDiaFormated[z])   *(totalRepeticoes/seriesDoDiaFormated[z] *seriesDoDiaFormated[z] ))
-            
-            h2ToAppend =document.createElement("h2")
-            node = document.createTextNode(volumeDaSemana);
-            if(isNaN(volumeDaSemana)==true){
-                node = document.createTextNode("Necessário preencher todas as lacunas")
-            }
-           
-            
-            h2ToAppend.appendChild(node)
-            
-            father.appendChild(h2ToAppend)
-
-        }
-        }
-
-
         function somarPesos(){
             
               for(z=0;z<splits.length;z++){
@@ -474,37 +403,23 @@
             total = total+valueToFloat
             
             })
-            document.getElementById("t1"+z).value  = total/seriesDoDiaFormated[z]
+            document.getElementById("t1"+z).value  = total
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             var totalRepeticoes = 0
             repeticoesTotais = document.getElementsByName("repeticoes"+z)
             repeticoesTotais.forEach((valorRepeticoes)=>{
             repeticoesToFloat = parseFloat(valorRepeticoes.value)
-            
+            console.log(valorRepeticoes.value)
             totalRepeticoes = totalRepeticoes + repeticoesToFloat;
             })
-            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes/seriesDoDiaFormated[z]
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
              }
         }
        
 
     </script>
     
- <script type="text/javascript">
-	 function hasHtml5Validation () {
-		return typeof document.createElement('input').checkValidity === 'function';
-	}
-	if (hasHtml5Validation()) {
-		$('#formid').submit(function (e) {
-		if (!this.checkValidity()) {
-			e.preventDefault();
-			$(this).addClass('invalid');
-		} else {
-			$(this).removeClass('invalid');
-		}
-		});
-	}
-</script>
+
 
 
 
@@ -634,17 +549,6 @@
                     
                     document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
         }
-    </script>
-
-
-
-
-    <script>
-
-        function loginExpires(){
-            console.log(document.cookie);
-        }
-        setInterval(loginExpires, 10000);
     </script>
   
     <script src="../app.js"></script>
