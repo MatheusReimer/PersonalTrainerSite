@@ -393,7 +393,7 @@
         }
 
 
-        function somarPesos(){
+   function somarPesos(){
             
               for(z=0;z<splits.length;z++){
             var total=0;
@@ -403,18 +403,19 @@
             total = total+valueToFloat
             
             })
-            document.getElementById("t1"+z).value  = total
+            document.getElementById("t1"+z).value  = total/seriesDoDiaFormated[z]
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             var totalRepeticoes = 0
             repeticoesTotais = document.getElementsByName("repeticoes"+z)
             repeticoesTotais.forEach((valorRepeticoes)=>{
             repeticoesToFloat = parseFloat(valorRepeticoes.value)
-            console.log(valorRepeticoes.value)
+            
             totalRepeticoes = totalRepeticoes + repeticoesToFloat;
             })
-            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes
+            document.getElementById("repeticoesTotais"+z).value = totalRepeticoes/seriesDoDiaFormated[z]
              }
         }
+       
        
 
     </script>
