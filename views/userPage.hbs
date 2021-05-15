@@ -317,6 +317,7 @@
         
         }
         isAdmin =document.getElementById('isAdmin').innerHTML
+        console.log(isAdmin)
         if(isAdmin==1){
             width =$(window).width();
           
@@ -368,11 +369,15 @@ function somarPesos(){
 
 
 
+
+
+
+
+
+
     
-        <!----------------------------------FOOTER------------------------------------------->
-
-
-           <a href="https://api.whatsapp.com/send?phone=554791411387&text=Olá%21%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20à%20respeito%20do%20personal." class="float" target="_blank">
+    <!------------------------------------- FOOTER ----------------------------------------------------------------------->
+    <a href="https://api.whatsapp.com/send?phone=554791411387&text=Olá%21%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20mais%20à%20respeito%20do%20personal." class="float" target="_blank">
         <i class="fa fa-whatsapp my-float"></i>
         </a>
 
@@ -386,9 +391,9 @@ function somarPesos(){
                         <a href="/" id="footer__logo">Pavanello Personal Trainer</a>
                         <p class="website__rights">© Pavanello Personal. Todos os direitos reservados.</p>
                         <div class="social__icons">
-                                <a href="https://www.instagram.com/pavanello.personal/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                                     <a href="https://www.instagram.com/pavanello.personal/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.facebook.com/andrei.pavanello" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <a href="/contacts" class="social__icon--link" target="_blank"><i class="fab fa-google"></i></a>
+                           <a href="/contacts" class="social__icon--link" target="_blank"><i class="fab fa-google"></i></a>
                             
                         </div>
                         
@@ -401,38 +406,109 @@ function somarPesos(){
 
 
 
+   
 
-            <!----------------------------------- MOBILE ------------------------------------------------------>
-   <div class ="toggle" onclick="show_hide()"></div>
+ 
+   
+    <!----------------------------------- MOBILE ------------------------------------------------------>
+    
+   
+      
+<div class="mobileContainerNonAdmin" id='mobileContainerNonAdmin'>
+ <div class ="toggle" onclick="show_hide()"></div>
     <div class ="overlay"></div>
     <div class = "menuMobile">
-        <ul>
+        <ul id="ulMenuMobile">
             <li><a href="/">Home</a></li>
-            <li><a href="/services">Serviços</a></li>
-            <li><a href="/contacts">Contato</a></li>
-            <li><a href="/login">Log-in</a></li>
+            <li><a href="/userStats">Progresso</a></li>
+            <li><a href="/login" onclick="cookieDelete(), cookieDeleteAdmin()">Logout</a></li>
         </ul>
     </div>
+</div>
+
+    <script>
+     
+        if(isAdmin==1){
+            
+            ul =document.getElementById("ulMenuMobile")
+            li=document.createElement("li")
+            li.setAttribute("id","liId")
+            a = document.createElement("a")
+            a.value="Admin"
+            a.href = "/adminCheck"
+            a.appendChild(document.createTextNode(a.value))
+            li.appendChild((a));
+            ul.appendChild(li)
+            
+            ul =document.getElementById("ulMenuMobile")
+            li=document.createElement("li")
+            li.setAttribute("id","liId")
+            a = document.createElement("a")
+            a.value="Registrar"
+            a.href = "/register"
+            a.appendChild(document.createTextNode(a.value))
+            li.appendChild((a));
+            ul.appendChild(li)
+      
+        }
+    </script>
+
+
+
+
+  
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript">
+    var a=0
         $(document).ready(function(){
             $('.toggle').click(function(){
                 $('.toggle').toggleClass('active')
                 $('.overlay').toggleClass('active')
                 $('.menuMobile').toggleClass('active')
-                
+                a++;
+               
                     
 
             }
             )
         })
+
+
+    
     </script>
-    
-    
+    <script>
+            function cookieDeleteAdmin(){
+                                   
+
+                    var cookieValue =  localStorage.getItem('adminUserEmail');
+                    
+                    document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
+        }
+    </script>
+
+
+
+
+    <script>
+
+        function loginExpires(){
+            console.log(document.cookie);
+        }
+        setInterval(loginExpires, 10000);
+    </script>
   
-    
- 
+    <script src="../app.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+
+        
+
+
+
 
 </body>
+
+
 </html>
+

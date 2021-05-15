@@ -174,7 +174,7 @@
     
   
     <script src="app.js"></script>
-       <script>
+    <script>
                function cookieDeleteAdmin(){
                                    
 
@@ -191,9 +191,10 @@
                     document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
         }
 
-        window.onload = cookieDelete;
-        window.onload = cookieDeleteAdmin;
-        </script>
+        window.onload = cookieDelete();
+        window.onload = cookieDeleteAdmin();
+    </script>
+
  
 
 </body>

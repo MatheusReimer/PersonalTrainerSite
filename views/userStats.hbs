@@ -104,11 +104,7 @@
 
 <script>
     
-
-
-
     function getData(){
-
     var name = "{{ name }}";
     var peso = "{{ peso }}";
     var exercise = "{{ exercise }}";
@@ -117,7 +113,6 @@
     var series="{{ series }}"
     var rep = "{{rep}}"
     var days = "{{days}}"
-
     arrayMember = member.split(",")
     arrayPeso = peso.split(",")
     arrayExercise = exercise.split(",")
@@ -126,24 +121,18 @@
     days = days.split(",")
     arrayFormataded = []
  
-
     for(i=0;i<days.length;i++){
         var myDate =    new Date(days[i])
         var finalDate = myDate.getDate()+"-"+(myDate.getMonth()+1)+"-"+myDate.getFullYear();
         arrayFormataded.push(finalDate)
     }
     console.log(arrayFormataded)
-
-
-
     getMember = member.split(",")
     var arrayMemberSemDuplicatas = [];
     $.each(getMember, function(i, el){
     if($.inArray(el, arrayMemberSemDuplicatas) === -1) arrayMemberSemDuplicatas.push(el);
     
     });
-
-
     for(z=0;z<arrayMemberSemDuplicatas.length;z++){
             holder =document.getElementById('selectMember')
             c= document.createElement('option')
@@ -151,14 +140,8 @@
             node = document.createTextNode(arrayMemberSemDuplicatas[z])
             c.appendChild(node)
             holder.appendChild(c)
-
-
     
     }
-
-
-
-
     ///Retirando os elementos com Barra do array
      var elements = []
      indexOfElement = []
@@ -175,7 +158,6 @@
     for(t=0;t<elements.length;t++){
     
         if(arrayMemberSemDuplicatas.includes(elements[t])){
-
         }else{
             //apaga
             holder =document.getElementById('selectMember')
@@ -188,9 +170,7 @@
         }
         
     }
-
     holder =document.getElementById('selectMember')
-
   
        
         for(z=0;z<indexOfElement.length;z++){
@@ -200,13 +180,8 @@
         }
     
     
-
     console.log(arrayMemberSemDuplicatas)
-
-
   
-
-
     document.getElementById('selectedMember').onclick=function(){
          valorSelecionado = getSelectedValue()
          indexes = getArrayOfIndexes(valorSelecionado,arrayMember)
@@ -214,11 +189,9 @@
          volume = calculateVolume(arrayPeso,arraySeries, arrayRep,indexes)
          
          daysToDisplay = calculateDay(arrayFormataded,indexes)
-
   
         var duplicatedDays = getDuplicateArrayElements(daysToDisplay)
         console.log("Dias= " + duplicatedDays)
-
         const
         transpose = arr => arr[0].map((_, col) => arr.map(row => row[col])),
   
@@ -226,20 +199,15 @@
         .map((date, index) => [date, volume[index]])
         .reduce((acc, [date, volume]) =>
         ({ ...acc, [date]: (acc[date] || 0) + volume }), {})));
-
         console.log(JSON.stringify(days)); // ["12-01-2021","13-01-2021","14-01-2021"]
         console.log(JSON.stringify(vols)); // [1,9,5]
   
-
           createChart(vols,days)
     }
-
   
     
     
     }
-
-
         function getDuplicateArrayElements(arr){
          var sorted_arr = arr.slice().sort();
         var results = [];
@@ -250,14 +218,6 @@
         }
         return results;
         }
-
-
-
-
-
-
-
-
     function createChart(volume,daysToDisplay){
     
     
@@ -317,7 +277,6 @@ var myChart = new Chart(ctx, {
             labels: {
                 // This more specific font property overrides the global property
                 fontColor: 'black'
-
             }
           
         },
@@ -327,20 +286,12 @@ var myChart = new Chart(ctx, {
     }
 });
     }
-
-
-
-
-
-
     getData()
-
     function getSelectedValue(){
         indexSelecionado =document.getElementById("selectMember").value
         console.log(indexSelecionado)
         return(indexSelecionado)
     }
-
     
     function getArrayOfIndexes(valorSelecionado, arrayOfMembers){
         indexes=[]
@@ -352,8 +303,6 @@ var myChart = new Chart(ctx, {
         }
         console.log(indexes)
         return indexes
-
-
     }
     function calculateVolume(arrayPeso,arraySeries,arrayRepeticoes, indexes){
         arrayOfVolumes =[]
@@ -374,11 +323,7 @@ var myChart = new Chart(ctx, {
         console.log(arrayOfDays)
         return arrayOfDays
     }
-
-
     
-
-
 isAdmin =document.getElementById('isAdmin').innerHTML
     if(isAdmin==1){
       width =$(window).width();
@@ -387,11 +332,8 @@ isAdmin =document.getElementById('isAdmin').innerHTML
     if(width>1420) {document.getElementById('registerPage').style.visibility = 'visible'}
     var button = document.createElement("button");
     button.innerHTML = "Admin Logout";
-
     var body = document.getElementsByClassName("adminLogout")[0]
     body.appendChild(button);
-
-
     button.onclick = function(){
          var cookieValue =  localStorage.getItem('adminUser');
                     
@@ -399,11 +341,8 @@ isAdmin =document.getElementById('isAdmin').innerHTML
                     window.location.replace("/adminCheck");
                     adminIsLogged=false
     };
-
   
 }
-
-
     
 </script>
 
@@ -415,16 +354,12 @@ isAdmin =document.getElementById('isAdmin').innerHTML
     <script>
         function cookieDelete(){
                                    
-
                     var cookieValue =  localStorage.getItem('emailLogin');
                     
                     document.cookie = "myEmail=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
         }
-
-
               function cookieDeleteAdmin(){
                                    
-
                     var cookieValue =  localStorage.getItem('adminUserEmail');
                     
                     document.cookie = "adminUser=" + cookieValue + ";expires="+new Date(2018,12,25).toUTCString();
@@ -479,16 +414,44 @@ isAdmin =document.getElementById('isAdmin').innerHTML
 
    
     <!----------------------------------- MOBILE ------------------------------------------------------>
+<div class="mobileContainerNonAdmin" id='mobileContainerNonAdmin'>
  <div class ="toggle" onclick="show_hide()"></div>
     <div class ="overlay"></div>
     <div class = "menuMobile">
-        <ul>
+        <ul id="ulMenuMobile">
             <li><a href="/">Home</a></li>
-
-            <li><a href="/adminCheck">Admin</a></li>
+            <li><a href="/userPage">Treino</a></li>
             <li><a href="/login" onclick="cookieDelete(), cookieDeleteAdmin()">Logout</a></li>
         </ul>
     </div>
+</div>
+
+    <script>
+     
+        if(isAdmin==1){
+            
+            ul =document.getElementById("ulMenuMobile")
+            li=document.createElement("li")
+            li.setAttribute("id","liId")
+            a = document.createElement("a")
+            a.value="Admin"
+            a.href = "/adminCheck"
+            a.appendChild(document.createTextNode(a.value))
+            li.appendChild((a));
+            ul.appendChild(li)
+            
+            ul =document.getElementById("ulMenuMobile")
+            li=document.createElement("li")
+            li.setAttribute("id","liId")
+            a = document.createElement("a")
+            a.value="Registrar"
+            a.href = "/register"
+            a.appendChild(document.createTextNode(a.value))
+            li.appendChild((a));
+            ul.appendChild(li)
+      
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript">
@@ -499,7 +462,6 @@ isAdmin =document.getElementById('isAdmin').innerHTML
                 $('.menuMobile').toggleClass('active')
                 
                     
-
             }
             )
         })
@@ -517,7 +479,3 @@ isAdmin =document.getElementById('isAdmin').innerHTML
 
 
 </html>
-
-
-
-

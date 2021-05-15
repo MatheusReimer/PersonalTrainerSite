@@ -338,19 +338,21 @@ var list5 = [];
 
    
     <!----------------------------------- MOBILE ------------------------------------------------------>
- <div class ="toggle"></div>
+    <!----------------------------------- MOBILE ------------------------------------------------------>
+<div class="mobileContainerNonAdmin" id='mobileContainerNonAdmin'>
+ <div class ="toggle" onclick="show_hide()"></div>
     <div class ="overlay"></div>
     <div class = "menuMobile">
-        <ul>
+        <ul id="ulMenuMobile">
             <li><a href="/">Home</a></li>
-       
-            <li><a href="/uploadImages">Upload Images</a></li>
-            
-            <li><a href="/adminCheck">Alunos</a></li>
-            <li><a href="/register">Registrar</a></li>
-            <li><a href="/login" onclick="cookieDelete(),cookieDeleteAdmin()">Logout</a></li>
+            <li><a href="/userPage">Treino</a></li>
+            <li><a href="/adminCheck">Admin</a></li>
+            <li><a href="/login" onclick="cookieDelete(), cookieDeleteAdmin()">Logout</a></li>
         </ul>
     </div>
+</div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript">
