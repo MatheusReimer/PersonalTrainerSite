@@ -1,3 +1,4 @@
+  
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const mysql = require("mysql")
@@ -12,8 +13,7 @@ const db = mysql.createConnection({
 
 
 
-
-exports.login =  (req, res) => {
+exports.login = async (req, res) => {
     try {
         const{email, password} = req.body;
 
@@ -28,18 +28,8 @@ exports.login =  (req, res) => {
             })
             
         }
- 
-        
         db.query('SELECT * FROM users2 WHERE email = ?' , [email], async(error,results) =>{
-            if(results.length<1){
-                res.clearCookie('myEmail');
-                res.status(401).render('login', {
-                    message:'Email or password is incorrect'
-                    
-                    
-                })
-            }else{
-
+            console.log(results);
             if(!results || !(await bcrypt.compare(password,results[0].password))){
                 res.clearCookie('myEmail');
                 res.status(401).render('login', {
@@ -66,7 +56,6 @@ exports.login =  (req, res) => {
                 res.status(200).redirect("/userPage")
 
             }
-        }
         })
     } catch (error) {
         console.log(error)
@@ -77,7 +66,6 @@ exports.login =  (req, res) => {
   
 
 }
-
 
 
 
@@ -229,8 +217,6 @@ exports.personal = async(req, res) => {
     )}
 
   
-
-
     exports.userPage = (req, res) => {
         arrayOfExercices = []
         var diaSelecionado = req.body.diaSelecionado
@@ -330,9 +316,7 @@ exports.personal = async(req, res) => {
     
         }
     
-    
 
 
 
 
-    
