@@ -71,11 +71,13 @@ router.get('/userPage',authFunct,async (req,res) =>{
     contador= 1;
 
     admin=0
-
-
-  
+    let nameToDisplay;
+    await db.query('SELECT name FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
+    nameToDisplay = results[0].name
     
-    db.query('SELECT admin FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
+    })
+    
+    await db.query('SELECT admin FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
         admin = results[0].admin
         console.log(admin)
 
@@ -88,13 +90,13 @@ router.get('/userPage',authFunct,async (req,res) =>{
 
      
     ///MAIN QUERY
-    db.query('SELECT id FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
+    await db.query('SELECT id FROM users2 WHERE email = ?', [arrayOfCookies],async (error,results) =>{
         
-        await(loggedUserId = results[0].id);
+        (loggedUserId = results[0].id);
      
         for(q=1;q<=7;q++){
-        db.query('SELECT * FROM planilhausers2 WHERE idAluno = ? AND diaDaSemana = ?',[loggedUserId, q],async(error,results)  =>{
-            await (getResults = results[0])
+        await db.query('SELECT * FROM planilhausers2 WHERE idAluno = ? AND diaDaSemana = ?',[loggedUserId, q],async(error,results)  =>{
+             (getResults = results[0])
            
             if(getResults==null ){
               
@@ -163,25 +165,48 @@ router.get('/userPage',authFunct,async (req,res) =>{
     req.seriesDomingo = seriesDomingo
     
     
-    
-    
-    
+    let resultadosTotaisPesoEmOrdem =[];
+    let resultadosTotaisRepeticoesEmOrdem =[];
+    let resultadosTotaisSeriesEmOrdem =[];
+    let resultadosTotaisDiasEmOrdem =[];
+    let resultadosExerciciosEmOrdem =[]
+    let volumes = []
     var arrayOfCookies = req.cookies['myEmail'];
+    var biarray
 
-    
-
-    db.query('SELECT images FROM planilhausers2 WHERE idAluno = ?',[loggedUserId],async(error,results)  =>{
-    if(error){console.log(error)}
-
-    
+    await db.query('SELECT * FROM planilhausers2 WHERE idAluno= ? ORDER BY dateOfExercise DESC',[loggedUserId],async(error,results) =>{
+        if(error){console.log(error)}
+        else{
+            for(i=0;i<results.length;i++){
+            resultadosTotaisPesoEmOrdem.push( results[i].peso);
+            resultadosTotaisRepeticoesEmOrdem.push( results[i].repeticoes);
+            resultadosTotaisSeriesEmOrdem.push( results[i].series);
+            resultadosTotaisDiasEmOrdem.push( results[i].diaDaSemana);
+            resultadosExerciciosEmOrdem.push(results[i].exercicio)
+            }
+            
+          
+        }
+         
+        for(var i = 0; i < resultadosTotaisDiasEmOrdem.length; i++){
+            var value = resultadosTotaisPesoEmOrdem[i] * resultadosTotaisRepeticoesEmOrdem[i] * resultadosTotaisSeriesEmOrdem[i];
+            volumes[i] = value;
+        }
+       
+       
     })
+    
+ 
+   
+ 
     await delay(3000);
-    res.render('userPage',  {name: arrayOfCookies,admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
+    return res.render('userPage',  {nameOfUser:nameToDisplay,name: arrayOfCookies,volumes:volumes,resultadosExerciciosEmOrdem:resultadosExerciciosEmOrdem,resultadosTotaisSeries:resultadosTotaisSeriesEmOrdem, admin:admin,seriesSegunda:req.seriesSegunda,seriesTerca:req.seriesTerca,seriesQuarta:req.seriesQuarta,seriesQuinta:req.seriesQuinta,seriesSexta:req.seriesSexta,seriesSabado:req.seriesSabado,seriesDomingo:req.seriesDomingo,imagesSegunda:req.imagesSegunda,imagesTerca:req.imagesTerca,imagesQuarta:req.imagesQuarta,imagesQuinta:req.imagesQuinta,imagesSexta:req.imagesSexta,imagesSabado:req.imagesSabado,imagesDomingo:req.imagesDomingo, exercisesSegunda:req.exercisesSegunda, exercisesTerca:req.exercisesTerca, exercisesQuarta:req.exercisesQuarta, exercisesQuinta:req.exercisesQuinta, exercisesSexta:req.exercisesSexta, exercisesSabado:req.exercisesSabado,exercisesDomingo:req.exercisesDomingo })
     })
    
 
 
 })
+
 
 
 router.get('/personal',authFunct,isAdmin,(req,res) =>{
@@ -193,7 +218,7 @@ router.get('/personal',authFunct,isAdmin,(req,res) =>{
 
     
     //console.log(arrayOfCookies)
-    res.render('personal',  {name: arrayOfCookies, cookieAdmin:cookieAdmin})
+    return res.render('personal',  {name: arrayOfCookies, cookieAdmin:cookieAdmin})
     
 
 
@@ -212,7 +237,7 @@ router.get('/userStats',authFunct,async(req,res) =>{
     var arrayOfDays =[]
     var contador = 0;
 
-    db.query('SELECT admin FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
+    await db.query('SELECT admin FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
         admin = results[0].admin
         console.log(admin)
 
@@ -226,16 +251,16 @@ router.get('/userStats',authFunct,async(req,res) =>{
     }
        
         console.log("Email: " + userEmail)
-        db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
+        await db.query('SELECT id FROM users2 WHERE email = ?', [userEmail],async (error,results) =>{
             userID = results[0].id;
            // console.log(userID)
            if(userID==null){
-             res.render('userPage',{
+             return res.render('userPage',{
                  message:"Usuário inexistente"
              })
             }else{
                 
-                db.query('SELECT * FROM planilhausers2 WHERE idAluno = ? ORDER BY dateOfExercise ASC', [userID],async (error,results) =>{
+                await db.query('SELECT * FROM planilhausers2 WHERE idAluno = ? ORDER BY dateOfExercise ASC', [userID],async (error,results) =>{
                     fromStudent = results;
                     for(i=0;i<fromStudent.length;i++){
                         arrayOfPeso.push(fromStudent[i].peso)
@@ -271,9 +296,9 @@ router.get('/adminCheck',authFunct,isAdmin,async(req,res) =>{
     arrayAlunosSemDuplicatas=[]
     var arrayOfEmails =[]
     
-    db.query('SELECT idAluno from planilhausers2',async (error,results) =>{
+    db.query('SELECT id from users2',async (error,results) =>{
         for(i=0;i<results.length;i++){
-            idAlunos.push(results[i].idAluno)
+            idAlunos.push(results[i].id)
         }
 
         arrayAlunosSemDuplicatas = idAlunos.filter (function (value, index, array) { 
