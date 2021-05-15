@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +16,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+
+<script src="configurable-date-input-polyfill.dist.js"></script>
+
+<script src="node_modules/configurable-date-input-polyfill/configurable-date-input-polyfill.dist.js"></script>
+
 
 
 
@@ -107,8 +113,8 @@
     </select>
     <br>
     
-    <input type="hidden" value="{{name}}" name="email">
-    <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;">
+    <input type="hidden" value="{{name}}" name="email"/>
+    <input type="date" id="dateOfTrain" name="dateOfTrain" required style="visibility: hidden;" />
   
     
       <input type="hidden" id="diaSelecionado" name="diaSelecionado">
@@ -121,7 +127,7 @@
           <label id="lblmess"></label>
           
            
-             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;" onclick="somarPesos()"> 
+             <input type="submit" value="Pronto" class="selectWeekDay" id="buttonSubmit" style="visibility: hidden;" onclick="somarPesos()"/> 
        
     <p style="visibility: hidden;" id="imagesSegundaArray">{{imagesSegunda}}</p>
     <p  style="visibility: hidden;" id="imagesTercaArray">{{imagesTerca}}</p>
@@ -401,9 +407,9 @@ function somarPesos(){
                 </div>
     
            
-    
-        </div>
-
+            </div>
+       
+     
 
 
    
@@ -414,7 +420,7 @@ function somarPesos(){
     
    
       
-<div class="mobileContainerNonAdmin" id='mobileContainerNonAdmin'>
+
  <div class ="toggle" onclick="show_hide()"></div>
     <div class ="overlay"></div>
     <div class = "menuMobile">
@@ -424,7 +430,7 @@ function somarPesos(){
             <li><a href="/login" onclick="cookieDelete(), cookieDeleteAdmin()">Logout</a></li>
         </ul>
     </div>
-</div>
+
 
     <script>
      
@@ -505,7 +511,7 @@ function somarPesos(){
         
 
 
-
+ </div>
 
 </body>
 
