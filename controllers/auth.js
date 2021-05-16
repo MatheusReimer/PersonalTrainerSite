@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const mysql = require("mysql")
 const express= require("express")
+const session = require('express-session')
 const db = mysql.createConnection({
     host:process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -52,7 +53,7 @@ exports.login = async (req, res) => {
                     httpOnly:true
                 }
                 res.cookie('jwt',token,cookieOptions);
-                
+                req.flash('messageCreation','Sucesso na inserçao do treino')
                 res.status(200).redirect("/userPage")
 
             }
@@ -201,7 +202,7 @@ exports.personal = async(req, res) => {
         }
         }
         return res.render('personal',{
-            message:"Success creating spreadsheet"
+            message:"Sucesso ao criar planilha"
         })
 
         
@@ -308,6 +309,7 @@ exports.personal = async(req, res) => {
          
             const delay = ms => new Promise(res => setTimeout(res, ms));
             await delay(2000)
+            req.flash('messageCreation','messageCreation')
             res.status(200).redirect("/userPage")
          
          })
