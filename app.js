@@ -66,14 +66,10 @@ $(document).ready(function(){
 
 const express= require("express");
 const app = express();
-
 const mysql = require("mysql");
 const dotenv = require("dotenv")
 const path = require("path");
-var flash = require('req-flash');
 
-
-var session = require('express-session');
 var fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 
@@ -89,17 +85,10 @@ const db = mysql.createConnection({
 });
 const publicDirectory = path.join(__dirname, './public')
 const publicUpload = path.join(__dirname, './uploadedImages')
-app.use(session({
-    secret: 'djhxcvxfgshajfgjhgsjhfgsakjeauytsdfy',
-    resave: false,
-    saveUninitialized: true
-    }));
-
 app.use(express.static(publicDirectory));
 app.use(express.static(publicUpload));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use(flash());
 app.use(cookieParser());
 app.use(fileUpload());
 
@@ -121,7 +110,6 @@ db.connect(  (error) =>{
 
     }
 })
-
 
 
 app.get('/uploadImages',(req,res) =>{
