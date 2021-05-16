@@ -98,6 +98,10 @@
         <h4 class="successMsgPlan"> {{message2}}</h4>
     {{/if}}
     
+   
+   
+    
+    
    <form name="formid"  class="formUserPage" method="POST" action="/auth/userPage">
    <select id="weekDay" name="weekDay" onchange="display()" class="weekDay">
                  <option value="menu">Treino de hoje</option>
@@ -285,22 +289,20 @@
             b.step = 0.1;
             b.min = 0;
             b.name = "peso"
-            
             b.setAttribute("id","t1"+z)
-            b.required = true;
             q= document.createElement('input')
-            q.setAttribute("type","number");
+            q.setAttribute("type","hidden");
+
             q.name = "repeticoesTotais";
-            q.value="0"
+            
             q.setAttribute("id","repeticoesTotais"+z)
-            
-            
+     
             
            
             a.appendChild(b)
             a.appendChild(q)
             document.getElementById("t1"+z).style.visibility = 'hidden'
-            document.getElementById("repeticoesTotais"+z).style.visibility = 'hidden'
+            
             document.getElementById('buttonSubmit').style.visibility = 'visible';
             document.getElementById('dateOfTrain').style.visibility='visible'
             }
