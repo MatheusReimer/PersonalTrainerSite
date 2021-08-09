@@ -10,6 +10,7 @@ CRUD's with Node.js</br>
 Styles with CSS</br>
 Modeling with HTML or HBS</br>
 Structure in MVC</br>
+Charts and Graphs made with chart.js </br>
 Deployed with reverse Proxy throw NGINX</br>
 Deployed in digital ocean with an ubuntu server</br>
 
